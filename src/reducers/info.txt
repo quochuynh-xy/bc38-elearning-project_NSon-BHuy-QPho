@@ -1,0 +1,3 @@
+Vì sử dụng redux-toolkit, các reducer được đưa thẳng vào từng thư mục để quản lý riêng
+nên không sử dụng folder này.
+==> Sẽ xóa

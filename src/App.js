@@ -1,24 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import { routes } from "./app/routes";
+import {
+  Route,
+  Routes,
+  unstable_HistoryRouter as HistoryRouter,
+} from "react-router-dom";
+import { history } from "./utilities/history";
+const maproutes = routes.map((item, index) => {
+  return <Route key={index} path={item.path} element={<item.Component />} />;
+  // => <Route key="1" path="/" element=<Home />
+});
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <HistoryRouter history={history}>
+      <Routes>{maproutes}</Routes>
+    </HistoryRouter>
   );
 }
 

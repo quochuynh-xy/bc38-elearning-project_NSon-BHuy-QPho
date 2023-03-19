@@ -1,0 +1,4 @@
+Chứa các component có thể được sử dụng trong toàn bộ dự án.
+Mỗi thư mục chứa 1 component, gồm:
++ ComponentName.jsx
++ ComponentStyle.scss

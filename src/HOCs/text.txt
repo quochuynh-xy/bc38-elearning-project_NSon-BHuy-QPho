@@ -1,0 +1,3 @@
+Layout.jsx: file quản lý giao diện của từng trang riêng biệt.
+Hỏi Sơn xây dựng xem chỗ này kiểm tra điều kiện đăng nhập như thế nào.
+Có cần tạo ra component để return về trang nào đó khi chưa đăng nhập/ đã đăng nhập như Hiếu đã chỉ hay không.
