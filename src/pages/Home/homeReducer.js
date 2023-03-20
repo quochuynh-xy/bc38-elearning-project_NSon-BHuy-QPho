@@ -10,7 +10,8 @@ export const homeReducer = createSlice({
     reducers: {
         layDanhMucKhoaHocAction: (state, action)=> {
             state.danhMucKhoaHoc = action.payload
-        }
+        },
+        
     }
 })
 export const {layDanhMucKhoaHocAction} = homeReducer.actions;

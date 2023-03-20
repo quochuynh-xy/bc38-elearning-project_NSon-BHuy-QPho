@@ -1,0 +1,60 @@
+@import "../../../../styles/const.scss";
+@import "../../../../styles/mixin.scss";
+.card-item {
+  margin: 0 8px;
+  .card-cover {
+    img.cover__img {
+      height: 120px;
+      width: 100%;
+      object-fit: cover;
+      border: .5px solid #cccccc8e ;
+    }
+  }
+  .card-body {
+    .title {
+      font-size: 14px;
+      min-height: 34px;
+      font-weight: 700;
+      color: $cl-primary;
+      line-height: 1.2;
+      margin-top: 0.8rem;
+      margin-bottom: 0.4rem;
+    }
+    .athor {
+      font-size: 0.75rem;
+      line-height: 1;
+      color: $cl-grey-1;
+      margin-bottom: 0.4rem;
+    }
+    .rating {
+      .rating__avg {
+        .avg__number,
+        .avg__render {
+          font-size: 14px;
+          color: $cl-yellow-2;
+        }
+      }
+      .rating__view {
+        color: $cl-grey-1;
+      }
+    }
+    .price {
+      .price__original {
+        color: $cl-grey-1;
+      }
+      .price__discount {
+        color: $cl-primary;
+        font-weight: 700;
+      }
+    }
+    .hot {
+      .hot__status {
+        font-size: 12px;
+        font-weight: 700;
+        padding: 3px 8px;
+        color: $cl-primary;
+        background-color: $bg-yellow-1;
+      }
+    }
+  }
+}

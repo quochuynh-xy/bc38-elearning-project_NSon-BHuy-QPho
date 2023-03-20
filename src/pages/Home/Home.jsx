@@ -4,7 +4,8 @@ import { useEffect } from "react";
 import { fetchDanhMucKhoaHoc } from "./homeReducer";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import {FaDog} from "react-icons/fa"
+import Carousel from "./components/Carousel/Carousel";
+import TabAllCourses from "./components/TabAllCourses/TabAllCourses";
 const Home = () => {
   const dispatch = useDispatch();
   const danhMucKhoaHoc = useSelector(
@@ -16,14 +17,8 @@ const Home = () => {
   return (
     <Layout>
       <Header />
-      <div className="container mx-auto min-h-screen py-4">
-        <h2 className="text-center text-3xl text-red-500"><FaDog/><span className=""><FaDog/></span></h2>
-        <ul>
-          {danhMucKhoaHoc.map((item, index) => (
-            <li key={index}>{item.tenDanhMuc}</li>
-          ))}
-        </ul>
-      </div>
+      <Carousel/>
+      <TabAllCourses danhMucKhoaHoc={danhMucKhoaHoc}/>
       <Footer />
     </Layout>
   );
