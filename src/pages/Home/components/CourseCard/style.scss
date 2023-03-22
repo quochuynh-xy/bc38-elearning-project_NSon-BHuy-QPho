@@ -7,7 +7,7 @@
       height: 120px;
       width: 100%;
       object-fit: cover;
-      border: .5px solid #cccccc8e ;
+      border: 0.5px solid #cccccc8e;
     }
   }
   .card-body {
@@ -55,6 +55,136 @@
         color: $cl-primary;
         background-color: $bg-yellow-1;
       }
+    }
+  }
+  // .card-quickview {
+  //   // display: none;
+  //   top: 0;
+  //   width: 280px;
+  //   right: -260px;
+  //   padding: 20px;
+  //   border: 1px solid $bg-grey-4;
+  //   background-color: $bg-grey-1;
+  //   z-index: 10;
+    
+  //   .quickview__head {
+  //     .head__name {
+  //       color: $cl-primary;
+  //       font-weight: 700;
+  //       font-size: 1.1rem;
+  //     }
+  //     .head__update {
+  //       color: $cl-green-1;
+  //       font-weight: 700;
+  //       font-size: 12px;
+  //     }
+  //     .head__total-time {
+  //       font-weight: 400;
+  //       font-size: 11px;
+  //     }
+  //   }
+  //   .quickview__body {
+  //     font-size: 14px;
+  //     .body__des {
+  //       line-height: 1.1;
+  //     }
+  //   }
+  //   .quickview__actions {
+  //     .actions__btn-love, .actions__btn-sub {
+  //       height: 2.5rem;
+  //     }
+  //     .actions__btn-sub {
+  //       @include btnStyle($bg-purple-1, $cl-white-1, $bg-purple-1);
+  //     }
+  //     .actions__btn-love {
+  //       width: 2.5rem;
+  //       font-size: 1.5rem;
+  //       border: 1px solid $bg-grey-4;
+  //     }
+  //   }
+  // }
+  // &:hover {
+  //   img.cover__img {
+  //     filter: grayscale(50%);
+  //   }
+  //   .card-quickview {
+  //     display: block;
+  //   }
+  // }
+  // &.popup-left {
+  //   .card-quickview {
+  //     display: none;
+  //     top: 0;
+  //     height: 40px;
+  //     width: 120px;
+  //     background-color: darkcyan;
+  //     right: 100px;
+  //     z-index: 10;
+  //   }
+  // }
+}
+.card-quickview {
+  // display: none;
+  top: 0;
+  width: 280px;
+  right: -260px;
+  padding: 20px;
+  border: 1px solid $bg-grey-4;
+  background-color: $bg-grey-1;
+  z-index: 10;
+  
+  .quickview__head {
+    .head__name {
+      color: $cl-primary;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .head__update {
+      color: $cl-green-1;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .head__total-time {
+      font-weight: 400;
+      font-size: 11px;
+    }
+  }
+  .quickview__body {
+    font-size: 14px;
+    .body__des {
+      line-height: 1.1;
+    }
+  }
+  .quickview__actions {
+    .actions__btn-love, .actions__btn-sub {
+      height: 2.5rem;
+    }
+    .actions__btn-sub {
+      @include btnStyle($bg-purple-1, $cl-white-1, $bg-purple-1);
+    }
+    .actions__btn-love {
+      width: 2.5rem;
+      font-size: 1.5rem;
+      border: 1px solid $bg-grey-4;
+    }
+  }
+  &:hover {
+    img.cover__img {
+      filter: grayscale(50%);
+    }
+    .card-quickview {
+      display: block;
+    }
+  }
+  &.popup-left {
+    .card-quickview {
+      display: none;
+      top: 0;
+      height: 40px;
+      width: 120px;
+      background-color: darkcyan;
+      right: 100px;
+      z-index: 10;
     }
   }
 }

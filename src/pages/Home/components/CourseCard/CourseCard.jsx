@@ -1,11 +1,52 @@
 import { Rating } from "@mui/material";
 import backUpImg from "../../../../assets/img/blank_wide.jpg";
-import "./style.scss";
 import "animate.css";
+import "./style.scss";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 const CourseCard = (props) => {
   const { content } = props || {};
+  const [screenSize, setScreenSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  });
+  const navigate = useNavigate();
+  const ref = useRef(null);
+  useEffect(() => {
+    const handleResize = () => {
+      setScreenSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  useEffect(() => {
+    const element = ref.current;
+    const screenWidth = screenSize.width;
+    const caculatePosition = () => {
+      const elementLocX = element.getBoundingClientRect().left;
+      // console.log(element.getBoundingClientRect().left, element.getBoundingClientRect().right);
+      let popUpOnTheLeft = false; // Mặc định popup nằm bên phải
+      if (screenWidth - elementLocX < screenWidth/2) {
+        // Nếu như nó nằm lệch về bên phải thì popup sẽ nằm bên trái
+        popUpOnTheLeft = true;
+      }
+      // Nếu như xác định popup nằm bên trái thì thêm class left vào
+      if(popUpOnTheLeft) {
+        element.classList.add("popup-left")
+      } else {
+        element.classList.remove("popup-left")
+      }
+    };
+    element.addEventListener("mouseover", caculatePosition);
+    return () => element.removeEventListener("mouseover", caculatePosition);
+  }, [screenSize.width]);
   return (
-    <div className="card-item select-none shadow-sm">
+    <div ref={ref} className="card-item select-none shadow-sm relative"
+      onClick={()=> navigate("/chiTiet/"+ content.maKhoaHoc)}
+    >
       <div className="card-cover">
         <img
           className="cover__img rounded-sm"

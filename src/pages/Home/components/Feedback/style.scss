@@ -1,0 +1,17 @@
+@import "../../../../styles/const.scss";
+@import "../../../../styles/mixin.scss";
+.feedback {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    .feedback__title {
+        @include title-normal();
+        margin-bottom: 2rem;
+    }
+    .feedback__content {
+        margin-left: -12px;
+        margin-right: -12px;
+        .content__item {
+            margin: 0 12px;
+        }
+    }
+}

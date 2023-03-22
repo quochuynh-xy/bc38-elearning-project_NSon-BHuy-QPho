@@ -4,18 +4,17 @@ import { Carousel } from "antd";
 import { useEffect, useRef, useState } from "react";
 import { styled } from "@mui/material/styles";
 import CourseCard from "../CourseCard/CourseCard";
-import { fetchKhoaHocTheoDanhMuc } from "../../actions";
+import { fetchKhoaHocTheoDanhMuc } from "../../services";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+// import CardOverview from "../CourseCard/CardOverview";
 import "./style.scss";
 const TabAllCourses = (props) => {
   const { danhMucKhoaHoc } = props;
   const reference = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState("Lập trình Backend");
+  const [categoryCode, setCategoryCode] = useState("");
   const [value, setValue] = useState(0);
   const [tabItems, setTabItems] = useState([]);
-  const handleChangeTab = (event, newValue) => {
-    setValue(newValue);
-  };
   const CustomTabs = styled(Tabs)({
     "&": {
       alignItems: "center",
@@ -55,6 +54,9 @@ const TabAllCourses = (props) => {
       fontFamily: "'Roboto', sans-serif",
     },
   });
+  const handleChangeTab = (event, newValue) => {
+    setValue(newValue);
+  };
   const config = {
     dots: false,
     speed: 300,
@@ -80,14 +82,22 @@ const TabAllCourses = (props) => {
       getData();
     }
   }, [danhMucKhoaHoc]);
-  const handleSelectCategory = async (maDanhMuc) => {
-    try {
-      const res = await fetchKhoaHocTheoDanhMuc(maDanhMuc);
-      setTabItems(res.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  useEffect(() => {
+    let acceptUpdateTabItems = true;
+    const fetchData = async () => {
+      try {
+        const response = await fetchKhoaHocTheoDanhMuc(categoryCode);
+        const newData = response.data;
+        if (acceptUpdateTabItems && categoryCode) {
+          setTabItems(newData);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+    return () => (acceptUpdateTabItems = false);
+  }, [categoryCode]);
   return (
     <div className="course-tabs container mx-auto">
       <div className="course-tab__intro">
@@ -110,8 +120,8 @@ const TabAllCourses = (props) => {
               key={index}
               label={item.tenDanhMuc}
               onClick={() => {
-                handleSelectCategory(item.maDanhMuc);
                 setSelectedCategory(item.tenDanhMuc);
+                setCategoryCode(item.maDanhMuc);
               }}
             />
           ))}
@@ -122,11 +132,10 @@ const TabAllCourses = (props) => {
               Nâng cao hơn nữa kỹ năng {selectedCategory} của bạn.
             </h3>
             <p className="text-sm pt-2">
-              Dưới đây là danh sách những khóa học {selectedCategory} của chúng tôi, luôn được cập nhật và làm mới.
+              Dưới đây là danh sách những khóa học {selectedCategory} của chúng
+              tôi, luôn được cập nhật và làm mới.
             </p>
-            <button className="introduce__btn mt-4">
-              Khám phá ngay
-            </button>
+            <button className="introduce__btn mt-4">Khám phá ngay</button>
           </div>
           <div className="body__item-list relative">
             <Carousel {...config} ref={reference}>
@@ -134,6 +143,7 @@ const TabAllCourses = (props) => {
                 <CourseCard key={index} content={item} />
               ))}
             </Carousel>
+            {/* <CardOverview/> */}
             <div className="prev-btn absolute">
               <button onClick={() => reference.current.prev()}>
                 <FaAngleLeft />

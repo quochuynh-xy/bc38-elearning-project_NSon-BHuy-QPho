@@ -5,3 +5,9 @@ export const fetchKhoaHocTheoDanhMuc = (maDanhMuc) =>
       maDanhMuc,
     },
   });
+export const fetchDanhMucKhoaHoc = (tenMuc) =>
+  https.get("api/QuanLyKhoaHoc/LayDanhMucKhoaHoc", {
+    params: {
+      tenDanhMuc: tenMuc,
+    },
+  });
