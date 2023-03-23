@@ -2,10 +2,11 @@ import { BsFillStarFill, BsCheckLg } from "react-icons/bs";
 import "./style.scss";
 import { Collapse } from "antd";
 const { Panel } = Collapse;
-const FilterBar = () => {
+const FilterBar = (props) => {
+  const {className} = props || {};
   return (
     <section className="container mx-auto relative">
-      <div className="filter-sider lg:w-1/5 hidden lg:block absolute top-0 left-0">
+      <div className={`filter-sider hidden lg:block lg:w-1/5 absolute top-0 left-0 ${className}`}>
         <Collapse
           defaultActiveKey={[1, 2, 3, 4, 5]}
           bordered={false}
@@ -193,7 +194,7 @@ const FilterBar = () => {
                 </span>
               </label>
               <p className="group-item__name">
-                Backend
+                Tất cả trình độ
               </p>
             </div>
             <div className="group__item flex items-center pb-3">
@@ -207,7 +208,7 @@ const FilterBar = () => {
                 </span>
               </label>
               <p className="group-item__name">
-                Fullstack
+                Sơ cấp
               </p>
             </div>
             <div className="group__item flex items-center pb-3">
@@ -221,7 +222,7 @@ const FilterBar = () => {
                 </span>
               </label>
               <p className="group-item__name">
-                Lập trình di động
+                Trung cấp
               </p>
             </div>
             <div className="group__item flex items-center pb-3">
@@ -235,7 +236,7 @@ const FilterBar = () => {
                 </span>
               </label>
               <p className="group-item__name">
-                Tư Duy lập trình
+                Cao cấp
               </p>
             </div>
             <div className="group__item flex items-center pb-3">
@@ -249,7 +250,7 @@ const FilterBar = () => {
                 </span>
               </label>
               <p className="group-item__name">
-                Web design
+                Thượng thừa
               </p>
             </div>
           </Panel>

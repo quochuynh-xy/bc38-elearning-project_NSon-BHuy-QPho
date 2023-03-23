@@ -2,6 +2,7 @@
 import Home from "../pages/Home/Home";
 import CourseDetails from "../pages/CourseDetails/CourseDetails";
 import SearchingCourses from "../pages/SearchingCourses/SearchingCourses";
+import CourseGroup from "../pages/CourseGroup/CourseGroup";
 export const routes = [
   {
     path: "/",
@@ -18,6 +19,12 @@ export const routes = [
   {
     path: "/timKiem/:tuKhoa",
     Component: SearchingCourses,
+    isPublic: false,
+    isAuth: false,
+  },
+  {
+    path: "/danhMuc/:tenDanhMuc",
+    Component: CourseGroup,
     isPublic: false,
     isAuth: false,
   },

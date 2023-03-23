@@ -2,10 +2,23 @@ import "./style.scss";
 import { useSelector } from "react-redux";
 import { BsClockHistory, BsCheck } from "react-icons/bs";
 import imgBackup from "../../../../assets/img/blank_wide.jpg";
+import { useEffect, useState } from "react";
 const DetailSideBar = () => {
   const thongTinKhoaHoc = useSelector(
     (state) => state.detailReducer.thongTinKhoaHoc
   );
+  const [imgcover, setImgcover] = useState("");
+  const autoHideImg = () => {
+    if (window.scrollY > 300) {
+      setImgcover("hidden");
+    } else {
+      return setImgcover("");
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", autoHideImg);
+    return () => window.removeEventListener("scroll", autoHideImg);
+  }, []);
   return (
     <div className="sidebar--control hidden lg:block absolute w-full">
       <div className="container mx-auto relative">
@@ -14,13 +27,16 @@ const DetailSideBar = () => {
             <div className="card shadow-md">
               <div className="card__header">
                 <img
-                  className="w-full max-h-48"
+                  className={`w-full max-h-48 ` + imgcover}
                   src={thongTinKhoaHoc.hinhAnh}
                   onError={(e) => (e.target.src = imgBackup)}
                   alt="preview"
                 />
               </div>
               <div className="card__body py-5 px-4">
+                <h1 className="body__course-name text-stone-700 text-lg font-bold pb-1">
+                  {thongTinKhoaHoc.tenKhoaHoc}
+                </h1>
                 <div className="body__price flex items-center">
                   <p className="text-2xl font-bold text-stone-800">FREE</p>
                   <p className="text-base text-stone-600 ml-4 line-through">

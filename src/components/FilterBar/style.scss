@@ -1,7 +1,8 @@
-@import "../../../../styles/const.scss";
-@import "../../../../styles/mixin.scss";
+@import "../../styles/const.scss";
+@import "../../styles/mixin.scss";
 $input-box-size: 1.1rem;
 .filter-sider {
+    user-select: none;
     .checkbox-container {
         width: $input-box-size;
         height: $input-box-size;
