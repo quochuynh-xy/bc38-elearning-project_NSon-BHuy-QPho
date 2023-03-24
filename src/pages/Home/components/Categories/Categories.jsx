@@ -7,6 +7,7 @@ import category5 from "../../../../assets/img/category5.jpg";
 import category6 from "../../../../assets/img/category6.jpg";
 import category7 from "../../../../assets/img/category7.jpg";
 import category8 from "../../../../assets/img/category8.jpg";
+import { Link } from "react-router-dom";
 const Categories = () => {
   return (
     <div className="categories container mx-auto">
@@ -16,9 +17,9 @@ const Categories = () => {
       <div className="categories__list flex flex-wrap">
         <div className="list__item basis-6/12 md:basis-3/12 px-2">
           <div className="w-full h-fit overflow-hidden">
-            <a href="#url" className="w-full">
+            <Link to="/danhMuc/TuDuy" className="w-full">
               <img className="w-full" src={category1} alt="category 1" />
-            </a>
+            </Link>
           </div>
           <p className="item-name capitalize font-bold text-stone-600 pt-2 text-sm">
             Tư Duy Lập Trình
@@ -26,9 +27,9 @@ const Categories = () => {
         </div>
         <div className=" list__item basis-6/12 md:basis-3/12 px-2">
           <div className="w-full h-fit overflow-hidden">
-            <a href="#url" className="w-full">
+            <Link to="/danhMuc/BackEnd" className="w-full">
               <img className="w-full" src={category2} alt="category 1" />
-            </a>
+            </Link>
           </div>
           <p className="item-name capitalize font-bold text-stone-600 pt-2 text-sm">
             Lập Trình Backend
@@ -36,9 +37,9 @@ const Categories = () => {
         </div>
         <div className=" list__item basis-6/12 md:basis-3/12 px-2">
           <div className="w-full h-fit overflow-hidden">
-            <a href="#url" className="w-full">
+            <Link to="/danhMuc/FrontEnd" className="w-full">
               <img className="w-full" src={category3} alt="category 1" />
-            </a>
+            </Link>
           </div>
           <p className="item-name capitalize font-bold text-stone-600 pt-2 text-sm">
             Lập Trình Frontend
@@ -46,9 +47,9 @@ const Categories = () => {
         </div>
         <div className=" list__item basis-6/12 md:basis-3/12 px-2">
           <div className="w-full h-fit overflow-hidden">
-            <a href="#url" className="w-full">
+            <Link to="/danhMuc/DiDong" className="w-full">
               <img className="w-full" src={category4} alt="category 1" />
-            </a>
+            </Link>
           </div>
           <p className="item-name capitalize font-bold text-stone-600 pt-2 text-sm">
             Lập Trình Di Động
@@ -56,9 +57,9 @@ const Categories = () => {
         </div>
         <div className=" list__item basis-6/12 md:basis-3/12 px-2">
           <div className="w-full h-fit overflow-hidden">
-            <a href="#url" className="w-full">
+            <Link to="/danhMuc/FullStack" className="w-full">
               <img className="w-full" src={category5} alt="category 1" />
-            </a>
+            </Link>
           </div>
           <p className="item-name capitalize font-bold text-stone-600 pt-2 text-sm">
             Lập trình FullStack
@@ -86,9 +87,9 @@ const Categories = () => {
         </div>
         <div className=" list__item basis-6/12 md:basis-3/12 px-2">
           <div className="w-full h-fit overflow-hidden">
-            <a href="#url" className="w-full">
+            <Link to="/danhMuc/Design" className="w-full">
               <img className="w-full" src={category8} alt="category 1" />
-            </a>
+            </Link>
           </div>
           <p className="item-name capitalize font-bold text-stone-600 pt-2 text-sm">
             Thiết kế web

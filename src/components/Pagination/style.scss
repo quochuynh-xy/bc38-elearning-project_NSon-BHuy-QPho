@@ -1,0 +1,25 @@
+@import "../../styles/mixin.scss";
+@import "../../styles/const.scss";
+.ant-pagination {
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    color: $cl-purple-2;
+  }
+  .anticon {
+    font-size: 12px;
+    vertical-align: 0px;
+  }
+  .ant-pagination-item-active {
+    border-color: $cl-purple-1;
+    &:hover {
+      border-color: #000;
+      a {
+        color: #000;
+      }
+    }
+    a {
+      color: $cl-purple-2;
+      font-weight: bold;
+    }
+  }
+}

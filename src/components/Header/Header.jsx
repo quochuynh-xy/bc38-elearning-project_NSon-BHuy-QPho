@@ -1,10 +1,80 @@
+import { https } from "../../services/config";
+import "./style.scss";
+import logo from "../../assets/img/logo_wide.png";
+import { Link } from "react-router-dom";
+import { HiMagnifyingGlass } from "react-icons/hi2";
+import { useEffect, useState } from "react";
 const Header = () => {
+  const [danhMucKhoaHoc, setDanhMucKhoaHoc] = useState([]);
+  useEffect(() => {
+    const promise = https.get("api/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
+    promise
+      .then((res) => setDanhMucKhoaHoc(res.data))
+      .catch((err) => console.log(err));
+  }, []);
   return (
-    <div className="py-2 bg-violet-400">
-      <h3 className="text-center font-bold tracking-wider text-white uppercase">
-        This is header
-      </h3>
-    </div>
+    <header className="desktop-header">
+      <div className="nav-bar container mx-auto flex items-center justify-between">
+        <Link to="/" className="header__logo basis-2/12">
+          <img className="h-14 mx-auto" src={logo} alt="EdemyLogo" />
+        </Link>
+        <div className="header__searh-input basis-4/12 mx-6 ">
+          <div className="input w-full">
+            <form className="flex h-10 items-center justify-center" action="">
+              <input
+                className="h-full w-full outline-none pl-6 border border-solid border-stone-200 rounded-full"
+                type="text"
+                placeholder="Bạn muốn học gì hôm nay?"
+              />
+              <button className="h-full pl-4 w-14 rounded-r-full text-xl -ml-14 hover:text-purple-800 hover:scale-125 duration-500">
+                <HiMagnifyingGlass />
+              </button>
+            </form>
+          </div>
+        </div>
+        <nav className="header__nav flex items-center justify-end">
+          <ul className="flex font-semibold justify-center">
+            <li className="nav-lever-1 relative">
+              <Link className="nav-lever-1__item">Danh mục</Link>
+              <ul className="nav-lever-2 absolute z-10 left-0">
+                {!danhMucKhoaHoc.length ?
+                <p className="nav-lever-2__item">Loading...</p>
+                :
+                danhMucKhoaHoc.map((item, index) => (
+                  <li className="nav-lever-2__item" key={index}>
+                    <Link to={`/danhMuc/${item.maDanhMuc}`}>{item.tenDanhMuc}</Link>
+                  </li>
+                ))}
+              </ul>
+            </li>
+            <li className="nav-lever-1">
+              <Link to="/tatCaKhoaHoc" className="nav-lever-1__item">Khóa học</Link>
+            </li>
+            <li className="nav-lever-1">
+              <Link className="nav-lever-1__item">Blog</Link>
+            </li>
+            <li className="nav-lever-1">
+              <Link className="nav-lever-1__item">Thông tin</Link>
+            </li>
+          </ul>
+          <Link className="avatar mx-4 relative">
+            <div className="profile">
+              <img
+                className="w-10 h-10 rounded-full"
+                src="https://picsum.photos/200"
+                alt="avatar"
+              />
+              <div className="avatar__action absolute z-10">
+                <ul>
+                  <li>Đăng xuất</li>
+                  <li>Đăng nhập</li>
+                </ul>
+              </div>
+            </div>
+          </Link>
+        </nav>
+      </div>
+    </header>
   );
 };
 export default Header;

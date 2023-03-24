@@ -260,3 +260,7 @@ const FilterBar = (props) => {
   );
 };
 export default FilterBar;
+/**
+ * Sử dụng tại:
+ * Trang kết quả tìm kiếm, trang danh sách khóa học
+ */

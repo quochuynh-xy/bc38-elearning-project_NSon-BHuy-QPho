@@ -1,16 +1,19 @@
 import "./style.scss";
 import { Breadcrumbs } from "@mui/material";
 import { BsChevronRight, BsFillExclamationCircleFill } from "react-icons/bs";
-import Link from "@mui/material/Link";
+import { Link } from "react-router-dom";
 import Rating from "@mui/material/Rating";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import imgBackup from "../../../../assets/img/blank_wide.jpg";
 const CustomBreadcrums = styled(Breadcrumbs)({
-  ".MuiTypography-root": {
+  "a": {
     color: "#cec0fc",
     fontWeight: 700,
     fontSize: "14px",
+    "&:hover": {
+      textDecoration: "underline"
+    }
   },
   ".MuiBreadcrumbs-separator": {
     margin: "0 4px",
@@ -27,14 +30,14 @@ const Introdution = () => {
     (state) => state.detailReducer.thongTinKhoaHoc
   );
   const breadcrumbs = [
-    <Link underline="hover" key="1" color="inherit" href="/">
+    <Link underline="hover" key="1" color="inherit" to="/">
       Home
     </Link>,
     <Link
       underline="hover"
       key="2"
       color="inherit"
-      href="/material-ui/getting-started/installation/"
+      to={`/danhMuc/${thongTinKhoaHoc?.danhMucKhoaHoc?.maDanhMucKhoahoc}`}
     >
       {thongTinKhoaHoc.danhMucKhoaHoc?.tenDanhMucKhoaHoc}
     </Link>,

@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import imgBackup from "../../assets/img/blank_wide.jpg"
 import { stringTrimmer } from "../../utilities/util";
+import "./style.scss";
 const ItemWide = (props) => {
     const navigate = useNavigate();
-    const data = props.data || {};
+    const {data,
+      handleSubscribe,
+    } = props || {};
     return (
       <div className="preview ml-auto flex flex-wrap border-b-2 border-solid border-stone-200 drop-shadow-md pb-4 mb-4">
         <div className="img basis-3/12 text-center">
@@ -25,7 +28,9 @@ const ItemWide = (props) => {
               </p>
             </div>
             <div className="action">
-              <button className="font-bold text-stone-800 border-stone-800 h-10 w-24 border border-solid hover:bg-stone-200 duration-300">
+              <button className="font-bold text-stone-800 border-stone-800 h-10 w-24 border border-solid hover:bg-stone-200 duration-300"
+                onClick={handleSubscribe}
+              >
                 Đăng ký
               </button>
             </div>
@@ -49,7 +54,9 @@ const ItemWide = (props) => {
               <div className="lg:hidden price flex items-center relative">
                 <p className="text-xs line-through">1.2000.000đ</p>
                 <p className="text-base font-bold mx-4">FREE</p>
-                <button className="absolute bottom-0 right-0 font-bold text-stone-800 border-stone-800 h-8 w-24 border border-solid hover:bg-stone-200 duration-300">
+                <button className="absolute bottom-0 right-0 font-bold text-stone-800 border-stone-800 h-8 w-24 border border-solid hover:bg-stone-200 duration-300"
+                  onClick={handleSubscribe}
+                >
                   Đăng ký
                 </button>
               </div>
@@ -60,3 +67,7 @@ const ItemWide = (props) => {
     );
 };
 export default ItemWide;
+/**
+ * Sử dụng tại: 
+ * + Làm item tại trang tìm kiếm - trang khóa học theo danh mục
+ */

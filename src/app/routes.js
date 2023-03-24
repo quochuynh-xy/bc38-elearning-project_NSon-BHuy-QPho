@@ -3,6 +3,7 @@ import Home from "../pages/Home/Home";
 import CourseDetails from "../pages/CourseDetails/CourseDetails";
 import SearchingCourses from "../pages/SearchingCourses/SearchingCourses";
 import CourseGroup from "../pages/CourseGroup/CourseGroup";
+import AllCourses from "../pages/AllCourses/AllCourses";
 export const routes = [
   {
     path: "/",
@@ -25,6 +26,12 @@ export const routes = [
   {
     path: "/danhMuc/:tenDanhMuc",
     Component: CourseGroup,
+    isPublic: false,
+    isAuth: false,
+  },
+  {
+    path: "/tatCaKhoaHoc/",
+    Component: AllCourses,
     isPublic: false,
     isAuth: false,
   },

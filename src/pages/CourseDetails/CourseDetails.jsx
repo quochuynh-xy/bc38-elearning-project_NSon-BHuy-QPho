@@ -7,6 +7,7 @@ import { actionFetchThongTinKhoaHoc } from "./courseDetailsReducer";
 import DetailSideBar from "./components/DetailSideBar/DetailSideBar";
 import { BsCheck, BsFillPlayCircleFill, BsClockFill } from "react-icons/bs";
 import { Collapse } from "antd";
+import Header from "../../components/Header/Header";
 const { Panel } = Collapse;
 const CourseDetails = () => {
   const params = useParams();
@@ -31,6 +32,7 @@ const CourseDetails = () => {
   );
   return (
     <Layout>
+      <Header/>
       <DetailSideBar />
       <Introdution data={thongTinKhoaHoc} />
       <section className="course-result container mx-auto">
