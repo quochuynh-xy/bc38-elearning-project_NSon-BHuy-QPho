@@ -1,8 +1,8 @@
 @import "../../styles/const.scss";
 @import "../../styles/mixin.scss";
 .desktop-header {
-  margin-bottom: 60px;
   box-shadow: 0 4px 2px 0 #ddd;
+  z-index: 100;
   .container {
     max-width: 1500px;
     height: 60px;

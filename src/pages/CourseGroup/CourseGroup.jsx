@@ -44,7 +44,6 @@ const CourseGroup = () => {
   useEffect(() => {
     const page = +searchParams.get("page");
     if (page) {
-      console.log("số trang ",page);
       setCurrentPage(page * 1);
     } else {
       setCurrentPage(1)

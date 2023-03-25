@@ -4,6 +4,7 @@ import CourseDetails from "../pages/CourseDetails/CourseDetails";
 import SearchingCourses from "../pages/SearchingCourses/SearchingCourses";
 import CourseGroup from "../pages/CourseGroup/CourseGroup";
 import AllCourses from "../pages/AllCourses/AllCourses";
+import Authentication from "../pages/Authentication/Authentication";
 export const routes = [
   {
     path: "/",
@@ -32,6 +33,12 @@ export const routes = [
   {
     path: "/tatCaKhoaHoc/",
     Component: AllCourses,
+    isPublic: false,
+    isAuth: false,
+  },
+  {
+    path: "/thamGia",
+    Component: Authentication,
     isPublic: false,
     isAuth: false,
   },
