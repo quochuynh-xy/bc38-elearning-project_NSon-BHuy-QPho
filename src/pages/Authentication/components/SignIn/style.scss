@@ -78,6 +78,18 @@ $input-height: 44px;
           top: -8px;
           font-size: 12px;
         }
+        .input__err-mes {
+          font-size: 1.25rem;
+          position: absolute;
+          top: -.5rem;
+          right: .25rem;
+          padding: 0 .25rem;
+          color: red;
+          font-weight: 400;
+          background-color: #fff;
+          user-select: none;
+          border-radius: 4px;
+        }
       }
       button.btn-login {
         @include btnStyle($bg-purple-1, $cl-white-1, $bg-purple-1);

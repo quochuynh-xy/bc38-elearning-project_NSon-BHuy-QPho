@@ -2,18 +2,42 @@ import { FcGoogle } from "react-icons/fc";
 import { BsFacebook, BsApple } from "react-icons/bs";
 import { BiHide, BiShow } from "react-icons/bi";
 import { useState } from "react";
-const SignIn = () => {
+import "./style.scss";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { actionGuiThongTinDangNhap } from "../../authReducer";
+import { useDispatch, useSelector } from "react-redux";
+const SignIn = (props) => {
+  const {switchSignUp} = props ||  {} // Hàm dùng chuyển trang
   const [showPass, setShowPass] = useState(true);
+  const loadingStatus = useSelector((store) => store.authReducer.loadingStatus); // pending => disable button
+  const dispatch = useDispatch();
   const handleShowPass = () => {
     setShowPass(!showPass);
   };
   const IconShowPass = () => {
-    if(showPass) {
-      return <BiShow onClick={handleShowPass}/>
+    if (showPass) {
+      return <BiShow onClick={handleShowPass} />;
     } else {
-      return <BiHide onClick={handleShowPass}/>
+      return <BiHide onClick={handleShowPass} />;
     }
   };
+  const handleSendLoginData = (loginData) => {
+    dispatch(actionGuiThongTinDangNhap(loginData));
+  };
+  const formik = useFormik({
+    initialValues: {
+      taiKhoan: "",
+      matKhau: "",
+    },
+    validationSchema: Yup.object().shape({
+      taiKhoan: Yup.string("*")
+        .required("*")
+        .matches(/^[a-zA-Z0-9._]+$/, "*"),
+      matKhau: Yup.string("*").required("*").max(16, "*"),
+    }),
+    onSubmit: (values) => handleSendLoginData(values),
+  });
   return (
     <section className="login-area">
       <div className="container mx-auto">
@@ -44,33 +68,59 @@ const SignIn = () => {
               </button>
             </div>
           </div>
-          <form className="options__input">
+          <form
+            className="options__input"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (loadingStatus === "PENDING") {
+                return;
+              } else {
+                formik.handleSubmit();
+              }
+            }}
+          >
             <div className="input__account">
               <input
                 required
-                id="tenTaiKhoan"
+                name="taiKhoan"
+                id="taiKhoan"
                 className="form-input"
                 type="text"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.taiKhoan}
               />
-              <label className="form-label" htmlFor="tenTaiKhoan">
+              <label className="form-label" htmlFor="taiKhoan">
                 Tài khoản
               </label>
+              <span className="input__err-mes">
+                {formik.touched.taiKhoan && formik.errors.taiKhoan}
+              </span>
             </div>
             <div className="input__account">
               <input
                 required
-                id="matKhauTK"
+                name="matKhau"
+                id="matKhau"
                 className="form-input"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.matKhau}
                 type={showPass ? "password" : "text"}
               />
-              <label className="form-label" htmlFor="matKhauTK">
+              <label className="form-label" htmlFor="matKhau">
                 Mật khẩu
               </label>
+              <span className="input__err-mes">
+                {formik.touched.matKhau && formik.errors.matKhau}
+              </span>
               <span className="cursor-pointer absolute right-0 top-0 px-2 text-lg text-black h-full flex items-center">
                 <IconShowPass />
               </span>
             </div>
-            <button className="btn-login w-full text-center">Đăng Nhập</button>
+            <button className="btn-login w-full text-center" type="submit">
+              Đăng Nhập
+            </button>
           </form>
           <div className="options__forgot py-4 text-center border-b border-stone-400 select-none">
             <p className="cursor-default">
@@ -89,6 +139,10 @@ const SignIn = () => {
               <a
                 className="pl-1 text-sm text-purple-700 hover:text-purple-800 underline underline-offset-4"
                 href="#url"
+                onClick={(e)=> {
+                  e.preventDefault();
+                  switchSignUp()
+                }}
               >
                 Đăng ký
               </a>

@@ -9,62 +9,63 @@
   }
   .nav-bar {
     .header__logo {
-      transition: .3s;
+      transition: 0.3s;
       &:hover {
         transform: scale(1.05);
       }
     }
     .header__searh-input {
-        color: $cl-primary;
+      color: $cl-primary;
     }
     .header__nav {
-      ul li.nav-lever-1 {
-        padding: 8px 4px;
-        margin: 0 4px;
-        color: $cl-primary;
-        transition: .3s;
-        .nav-lever-2 {
-          transition: .3s;
-          visibility: hidden;
-          opacity: 0;
-          padding: 8px;
-          border-radius: 4px;
-          background-color: #fff;
-          border: 1px solid #ddd;
-          .nav-lever-2__item {
-            transition: .3s;
-            color: $cl-primary;
-            font-weight: 500;
-            width: 200px;
-            a {
-              line-height: 1;
-              font-size: 14px;
-              padding: 8px 4px;
-              display: block;
-
-            }
-            &:last-child {
-              margin-bottom: 0;
-            }
-            &:hover {
-              color: $cl-purple-2;
+      .header-nav__menus {
+        li.nav-lever-1 {
+          padding: 8px 4px;
+          margin: 0 4px;
+          color: $cl-primary;
+          transition: 0.3s;
+          .nav-lever-2 {
+            transition: 0.3s;
+            visibility: hidden;
+            opacity: 0;
+            padding: 8px;
+            border-radius: 4px;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            .nav-lever-2__item {
+              transition: 0.3s;
+              color: $cl-primary;
+              font-weight: 500;
+              width: 200px;
+              a {
+                line-height: 1;
+                font-size: 14px;
+                padding: 8px 4px;
+                display: block;
+              }
+              &:last-child {
+                margin-bottom: 0;
+              }
+              &:hover {
+                color: $cl-purple-2;
+              }
             }
           }
-        }
-        &:hover {
-          color: $cl-purple-2;
-          text-decoration: underline;
-          text-underline-offset: 3px;
-          .nav-lever-2{
-            opacity: 1;
-            visibility: visible;
+          &:hover {
+            color: $cl-purple-2;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+            .nav-lever-2 {
+              opacity: 1;
+              visibility: visible;
+            }
           }
         }
       }
-      .avatar {
+      .header-nav__actions.avatar {
         .profile {
           .avatar__action {
-            transition: .5s;
+            transition: 0.5s;
             opacity: 0;
             visibility: hidden;
             background-color: $cl-white-1;
@@ -103,11 +104,26 @@
             }
           }
           &:hover {
-           .avatar__action {
-                opacity: 1;
-                visibility: visible;
-
+            .avatar__action {
+              opacity: 1;
+              visibility: visible;
             }
+          }
+        }
+      }
+      .header-nav__actions.actions{
+        .login-btn {
+          background-color: $cl-purple-3;
+          color: $cl-primary;
+          font-size: 14px;
+          padding: 4px 8px;
+          font-weight: 600;
+          border-radius: 4px;
+          margin-left: .5rem;
+          transition: .3s;
+          &:hover {
+            background-color: $cl-purple-1;
+            color: $cl-white-1;
           }
         }
       }

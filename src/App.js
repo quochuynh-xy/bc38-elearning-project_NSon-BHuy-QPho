@@ -6,6 +6,7 @@ import {
   unstable_HistoryRouter as HistoryRouter,
 } from "react-router-dom";
 import { history } from "./utilities/history";
+import HandleUserAccess from "./HOCs/HandleUserAccess";
 const maproutes = routes.map((item, index) => {
   return <Route key={index} path={item.path} element={<item.Component />} />;
   // => <Route key="1" path="/" element=<Home />
@@ -13,7 +14,9 @@ const maproutes = routes.map((item, index) => {
 function App() {
   return (
     <HistoryRouter history={history}>
-      <Routes>{maproutes}</Routes>
+      <HandleUserAccess>
+        <Routes>{maproutes}</Routes>
+      </HandleUserAccess>
     </HistoryRouter>
   );
 }

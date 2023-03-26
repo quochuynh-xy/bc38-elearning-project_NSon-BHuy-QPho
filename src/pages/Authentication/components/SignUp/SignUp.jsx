@@ -17,7 +17,8 @@ const groupName = [
   "GP09",
   "GP10",
 ];
-const SignUp = () => {
+const SignUp = (props) => {
+  const {switchSignIn} = props || {};
   const [showPass, setShowPass] = useState(true);
   const dispatch = useDispatch();
   const handleSendSignUpRequest =(formData) => dispatch(
@@ -85,7 +86,7 @@ const SignUp = () => {
     }
   };
   return (
-    <section className="login-area">
+    <section className="signUp-area">
       <div className="container mx-auto">
         <div className="form-options font-semibold text-stone-700 ">
           <h3 className="uppercase">Đăng ký và bắt đầu học tập.</h3>
@@ -231,6 +232,10 @@ const SignUp = () => {
               <a
                 className="pl-1 text-sm text-purple-700 hover:text-purple-800 underline underline-offset-4"
                 href="#url"
+                onClick={(e)=> {
+                  e.preventDefault();
+                  switchSignIn()
+                }}
               >
                 Đăng nhập
               </a>
@@ -242,14 +247,3 @@ const SignUp = () => {
   );
 };
 export default SignUp;
-//   const inputs = document.querySelectorAll("input");
-
-// inputs.forEach((input) => {
-//   input.addEventListener("animationstart", () => {
-//     // Check if input is autofilled
-//     if (input.matches(":-webkit-autofill")) {
-//       // Change background color
-//       input.style.backgroundColor = "white";
-//     }
-//   });
-// });

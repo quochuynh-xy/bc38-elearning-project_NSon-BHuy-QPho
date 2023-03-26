@@ -4,7 +4,14 @@ import logo from "../../assets/img/logo_wide.png";
 import { Link } from "react-router-dom";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { actionLogOut } from "../../pages/Authentication/authReducer";
 const Header = () => {
+  const dispatch = useDispatch();
+  const handleLogOut = () => {
+    dispatch(actionLogOut())
+  }
+  const isUserLogin = useSelector((store) => store.authReducer.isUserLogin);
   const [danhMucKhoaHoc, setDanhMucKhoaHoc] = useState([]);
   useEffect(() => {
     const promise = https.get("api/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
@@ -12,6 +19,37 @@ const Header = () => {
       .then((res) => setDanhMucKhoaHoc(res.data))
       .catch((err) => console.log(err));
   }, []);
+  const NavLoginStatus = () => {
+    if (isUserLogin) {
+      return (
+        <Link className="header-nav__actions avatar mx-4 relative">
+          <div className="profile">
+            <img
+              className="w-8 h-8 rounded-sm"
+              src="https://picsum.photos/200"
+              alt="avatar"
+            />
+            <div className="avatar__action absolute z-10">
+              <ul>
+                <li
+                  onClick={handleLogOut}
+                >Đăng xuất</li>
+                <li>Đăng nhập</li>
+              </ul>
+            </div>
+          </div>
+        </Link>
+      );
+    } else {
+      return (
+        <div className="header-nav__actions actions">
+          <Link className="login-btn" to="/thamGia">
+            Đăng nhập
+          </Link>
+        </div>
+      );
+    }
+  };
   return (
     <header className="desktop-header">
       <div className="nav-bar container mx-auto flex items-center justify-between">
@@ -33,22 +71,27 @@ const Header = () => {
           </div>
         </div>
         <nav className="header__nav flex items-center justify-end">
-          <ul className="flex font-semibold justify-center">
+          <ul className="header-nav__menus flex font-semibold justify-center">
             <li className="nav-lever-1 relative">
               <Link className="nav-lever-1__item">Danh mục</Link>
               <ul className="nav-lever-2 absolute z-10 left-0">
-                {!danhMucKhoaHoc.length ?
-                <p className="nav-lever-2__item">Loading...</p>
-                :
-                danhMucKhoaHoc.map((item, index) => (
-                  <li className="nav-lever-2__item" key={index}>
-                    <Link to={`/danhMuc/${item.maDanhMuc}`}>{item.tenDanhMuc}</Link>
-                  </li>
-                ))}
+                {!danhMucKhoaHoc.length ? (
+                  <p className="nav-lever-2__item">Loading...</p>
+                ) : (
+                  danhMucKhoaHoc.map((item, index) => (
+                    <li className="nav-lever-2__item" key={index}>
+                      <Link to={`/danhMuc/${item.maDanhMuc}`}>
+                        {item.tenDanhMuc}
+                      </Link>
+                    </li>
+                  ))
+                )}
               </ul>
             </li>
             <li className="nav-lever-1">
-              <Link to="/tatCaKhoaHoc" className="nav-lever-1__item">Khóa học</Link>
+              <Link to="/tatCaKhoaHoc" className="nav-lever-1__item">
+                Khóa học
+              </Link>
             </li>
             <li className="nav-lever-1">
               <Link className="nav-lever-1__item">Blog</Link>
@@ -57,7 +100,7 @@ const Header = () => {
               <Link className="nav-lever-1__item">Thông tin</Link>
             </li>
           </ul>
-          <Link className="avatar mx-4 relative">
+          {/* <Link className="header-nav__actions avatar mx-4 relative">
             <div className="profile">
               <img
                 className="w-10 h-10 rounded-full"
@@ -71,7 +114,13 @@ const Header = () => {
                 </ul>
               </div>
             </div>
-          </Link>
+          </Link> */}
+          {/* <div className="header-nav__actions actions">
+            <Link className="login-btn" 
+              to="/thamGia"
+            >Đăng nhập</Link>
+          </div> */}
+          <NavLoginStatus/>
         </nav>
       </div>
     </header>
