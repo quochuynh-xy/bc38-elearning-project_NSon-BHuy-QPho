@@ -12,7 +12,7 @@ const TabAllCourses = (props) => {
   const { danhMucKhoaHoc } = props;
   const reference = useRef(null);
   const [selectedCategory, setSelectedCategory] = useState("Lập trình Backend");
-  const [categoryCode, setCategoryCode] = useState("");
+  const [categoryCode, setCategoryCode] = useState(undefined);
   const [value, setValue] = useState(0);
   const [tabItems, setTabItems] = useState([]);
   const CustomTabs = styled(Tabs)({
