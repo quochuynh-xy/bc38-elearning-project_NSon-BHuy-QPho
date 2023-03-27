@@ -3,7 +3,10 @@ import { useSelector } from "react-redux";
 import { BsClockHistory, BsCheck } from "react-icons/bs";
 import imgBackup from "../../../../assets/img/blank_wide.jpg";
 import { useEffect, useState } from "react";
-const DetailSideBar = () => {
+const DetailSideBar = (props) => {
+  const { handleRegister, handleCancelRegistration } = props || {};
+  const [isRegisted, setIsRegisted] = useState(false);
+  const userInfo = useSelector((store) => store.authReducer.userInfo);
   const thongTinKhoaHoc = useSelector(
     (state) => state.detailReducer.thongTinKhoaHoc
   );
@@ -19,6 +22,34 @@ const DetailSideBar = () => {
     window.addEventListener("scroll", autoHideImg);
     return () => window.removeEventListener("scroll", autoHideImg);
   }, []);
+  useEffect(() => {
+    const maKhoaHoc = thongTinKhoaHoc.maKhoaHoc;
+    const registedList = userInfo.chiTietKhoaHocGhiDanh;
+    if (registedList.find((item) => item.maKhoaHoc === maKhoaHoc)) {
+      setIsRegisted(true);
+    }
+  }, [userInfo, thongTinKhoaHoc]);
+  const ControlRegisterBtn = () => {
+    if (isRegisted) {
+      return (
+        <button
+          className="h-12 w-full tracking-wider hover:bg-purple-800"
+          onClick={() => handleCancelRegistration()}
+        >
+          Đã đăng ký
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className="h-12 w-full tracking-wider hover:bg-purple-800"
+          onClick={() => handleRegister()}
+        >
+          Đăng Ký
+        </button>
+      );
+    }
+  };
   return (
     <div className="sidebar--control hidden lg:block absolute w-full">
       <div className="container mx-auto relative">
@@ -51,9 +82,13 @@ const DetailSideBar = () => {
                   </p>
                 </div>
                 <div className="body__actions py-4">
-                  <button className="h-12 w-full tracking-wider hover:bg-purple-800">
+                  {/* <button
+                    className="h-12 w-full tracking-wider hover:bg-purple-800"
+                    onClick={() => handleRegister()}
+                  >
                     Đăng Ký
-                  </button>
+                  </button> */}
+                  <ControlRegisterBtn />
                 </div>
                 <div className="body__detail">
                   <b>Khóa học bao gồm:</b>

@@ -8,11 +8,15 @@ import DetailSideBar from "./components/DetailSideBar/DetailSideBar";
 import { BsCheck, BsFillPlayCircleFill, BsClockFill } from "react-icons/bs";
 import { Collapse } from "antd";
 import Header from "../../components/Header/Header";
+import { requestDangKyKhoaHoc, requestHuyGhiDanh } from "./services";
 const { Panel } = Collapse;
 const CourseDetails = () => {
   const params = useParams();
   const thongTinKhoaHoc = useSelector(
-    (state) => state.detailReducer.thongTinKhoaHoc
+    (store) => store.detailReducer.thongTinKhoaHoc
+  );
+  const thongTinNguoiDung = useSelector(
+    (store) => store.authReducer.userInfo.userBasicInfo
   );
   const getDataSuccess = useSelector(
     (state) => state.detailReducer.getDataSuccess
@@ -23,17 +27,51 @@ const CourseDetails = () => {
     dispatch(actionFetchThongTinKhoaHoc(params.maKhoaHoc));
   }, [params.maKhoaHoc, dispatch]);
   useEffect(() => {
-    if(getDataSuccess === "FAIL") {
-      navigate("/")
+    if (getDataSuccess === "FAIL") {
+      navigate("/");
     }
   }, [getDataSuccess, navigate]);
   const CollapseHeader = (name) => (
     <p className="font-bold text-base pl-2">{name}</p>
   );
+  const handleRegister = () => {
+    const data = {
+      taiKhoan: thongTinNguoiDung.taiKhoan,
+      maKhoaHoc: thongTinKhoaHoc.maKhoaHoc,
+    };
+    const token = localStorage.getItem("elearningToken");
+    console.log(data);
+    console.log(token);
+    requestDangKyKhoaHoc(data, token)
+      .then((res) => {
+        alert("Đăng ký khóa học thành công.");
+        console.log(res.data);
+      })
+      .catch((err) => {
+        alert("Đéo được rồi bạn ơi.");
+        console.log(err);
+      });
+  };
+  const handleCancelRegistration = () => {
+    const data = {
+      taiKhoan: thongTinNguoiDung.taiKhoan,
+      maKhoaHoc: params.maKhoaHoc,
+    };
+    const token = localStorage.getItem("elearningToken");
+    requestHuyGhiDanh(data, token)
+    .then( (res) => {
+      alert("Hủy ghi danh thành công");
+      console.log(res);
+    })
+    .catch( (err) => {
+      alert("Hủy ghi danh thất bại");
+      console.log(err);
+    })
+  }
   return (
     <Layout>
-      <Header/>
-      <DetailSideBar />
+      <Header />
+      <DetailSideBar handleRegister={handleRegister} handleCancelRegistration={handleCancelRegistration}/>
       <Introdution data={thongTinKhoaHoc} />
       <section className="course-result container mx-auto">
         <div className="course-result__content lg:w-3/5 mt-8 mb-8 p-6 border-solid border border-stone-200">
