@@ -95,11 +95,27 @@
             }
             ul li {
               margin: 4px 0;
-              text-align: center;
+              text-align: end;
               font-size: 12px;
               transition: 0.3s;
+              padding-right: 4px;
+              font-weight: 600;
+              position: relative;
+              &::after {
+                position: absolute;
+                content: "";
+                width: 0;
+                left: 0;
+                bottom: 1px;
+                height: 1px;
+                background-color: $cl-purple-3;
+                transition-duration: .3s;
+              }
               &:hover {
                 color: $cl-purple-2;
+                &::after {
+                  width: 100%;
+                }
               }
             }
           }

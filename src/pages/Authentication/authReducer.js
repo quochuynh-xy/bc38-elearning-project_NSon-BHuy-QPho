@@ -65,7 +65,7 @@ const authenReducer = createSlice({
         soDT,
         taiKhoan,
       };
-      state.chiTietKhoaHocGhiDanh = chiTietKhoaHocGhiDanh;
+      state.userInfo.chiTietKhoaHocGhiDanh = chiTietKhoaHocGhiDanh;
       state.isUserLogin = true;
     },
     actionLogOut: (state, action) => {

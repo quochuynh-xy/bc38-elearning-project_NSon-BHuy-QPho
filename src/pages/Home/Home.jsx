@@ -17,6 +17,9 @@ const Home = () => {
   useEffect(() => {
     dispatch(actionFetchDanhMucKhoaHoc());
   }, [dispatch]);
+  useEffect(() => {
+    document.title = "Edemy";
+  },[]);
   return (
     <Layout>
       <Header />

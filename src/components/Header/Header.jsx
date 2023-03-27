@@ -12,6 +12,7 @@ const Header = () => {
     dispatch(actionLogOut())
   }
   const isUserLogin = useSelector((store) => store.authReducer.isUserLogin);
+  const typeOfUser = useSelector((store) => store.authReducer.userInfo.userBasicInfo.maLoaiNguoiDung);
   const [danhMucKhoaHoc, setDanhMucKhoaHoc] = useState([]);
   useEffect(() => {
     const promise = https.get("api/QuanLyKhoaHoc/LayDanhMucKhoaHoc");
@@ -22,23 +23,25 @@ const Header = () => {
   const NavLoginStatus = () => {
     if (isUserLogin) {
       return (
-        <Link className="header-nav__actions avatar mx-4 relative">
+        <div className="header-nav__actions avatar mx-4 relative">
           <div className="profile">
             <img
               className="w-8 h-8 rounded-sm"
-              src="https://picsum.photos/200"
+              src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/d6/d6b8ca99028c63709c30f9a3fa21d86eec437767.jpg"
               alt="avatar"
             />
             <div className="avatar__action absolute z-10">
               <ul>
+                <li><Link to="/caNhan">Trang cá nhân</Link></li>
+                {typeOfUser === "GV" ?<li className="cursor-pointer">Quản lý</li> : null}
                 <li
                   onClick={handleLogOut}
+                  className="text-red-700 cursor-pointer"
                 >Đăng xuất</li>
-                <li>Đăng nhập</li>
               </ul>
             </div>
           </div>
-        </Link>
+        </div>
       );
     } else {
       return (
