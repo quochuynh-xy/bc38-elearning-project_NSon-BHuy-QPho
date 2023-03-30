@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import {  useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../HOCs/Layout";
@@ -9,6 +9,10 @@ import { BsCheck, BsFillPlayCircleFill, BsClockFill } from "react-icons/bs";
 import { Collapse } from "antd";
 import Header from "../../components/Header/Header";
 import { requestDangKyKhoaHoc, requestHuyGhiDanh } from "./services";
+import { actionAutoLoginSuccess } from "../Authentication/authReducer";
+import { autoLogin } from "../Authentication/services";
+import Swal from "sweetalert2";
+
 const { Panel } = Collapse;
 const CourseDetails = () => {
   const params = useParams();
@@ -39,16 +43,30 @@ const CourseDetails = () => {
       taiKhoan: thongTinNguoiDung.taiKhoan,
       maKhoaHoc: thongTinKhoaHoc.maKhoaHoc,
     };
+    // Dùng để đăng nhập lại => cập nhật dữ liệu
     const token = localStorage.getItem("elearningToken");
-    console.log(data);
-    console.log(token);
     requestDangKyKhoaHoc(data, token)
       .then((res) => {
-        alert("Đăng ký khóa học thành công.");
-        console.log(res.data);
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Đăng ký thành công',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        return autoLogin(token)
+      })
+      .then(res => {
+        dispatch(actionAutoLoginSuccess(res.data))
       })
       .catch((err) => {
-        alert("Đéo được rồi bạn ơi.");
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Có lỗi xảy ra, tải lại trang và thử lại.',
+          showConfirmButton: false,
+          timer: 2000
+        })
         console.log(err);
       });
   };
@@ -59,19 +77,37 @@ const CourseDetails = () => {
     };
     const token = localStorage.getItem("elearningToken");
     requestHuyGhiDanh(data, token)
-    .then( (res) => {
-      alert("Hủy ghi danh thành công");
-      console.log(res);
-    })
-    .catch( (err) => {
-      alert("Hủy ghi danh thất bại");
-      console.log(err);
-    })
-  }
+      .then((res) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Hủy đăng ký thành công',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        return autoLogin(token)
+      })
+      .then(res => {
+        dispatch(actionAutoLoginSuccess(res.data))
+      })
+      .catch((err) => {
+        Swal.fire({
+          position: 'center',
+          icon: 'error',
+          title: 'Có lỗi xảy ra, tải lại trang và thử lại.',
+          showConfirmButton: false,
+          timer: 2000
+        })
+        console.log(err);
+      });
+  };
   return (
     <Layout>
       <Header />
-      <DetailSideBar handleRegister={handleRegister} handleCancelRegistration={handleCancelRegistration}/>
+      <DetailSideBar
+        handleRegister={handleRegister}
+        handleCancelRegistration={handleCancelRegistration}
+      />
       <Introdution data={thongTinKhoaHoc} />
       <section className="course-result container mx-auto">
         <div className="course-result__content lg:w-3/5 mt-8 mb-8 p-6 border-solid border border-stone-200">

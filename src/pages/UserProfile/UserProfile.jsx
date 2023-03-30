@@ -2,18 +2,49 @@ import { useEffect, useState } from "react";
 import Layout from "../../HOCs/Layout";
 import Header from "../../components/Header/Header";
 import CourseItemSmall from "../../components/CourseItemSmall/CourseItemSmall";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
+import Swal from "sweetalert2";
 import Pagination from "../../components/Pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
+import { requestHuyGhiDanh } from "./services";
+import { autoLogin } from "../Authentication/services";
+import { actionAutoLoginSuccess } from "../Authentication/authReducer";
 const UserProfile = () => {
+  const dispatch = useDispatch();
   const subscribedCoures = useSelector(
     (store) => store.authReducer.userInfo.chiTietKhoaHocGhiDanh
+  );
+  const userInfo = useSelector(
+    (store) => store.authReducer.userInfo.userBasicInfo
   );
   const [searchParams, setSearchParams] = useSearchParams();
   const [splittedData, setSplittedData] = useState([]);
   const [displayPage, setDisplayPage] = useState(1);
   const itemsPerPage = 8;
+  const handleCancelRegistration = async (maKhoaHoc) => {
+    const token = localStorage.getItem("elearningToken");
+    const data = {
+      maKhoaHoc: maKhoaHoc,
+      taiKhoan: userInfo.taiKhoan,
+    };
+    try {
+      let res = await requestHuyGhiDanh(data, token);
+      Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Hủy đăng ký thành công",
+        showConfirmButton: false,
+        timer: 2000,
+      });
+      console.log(res.data);
+      let newUserData = await autoLogin(token);
+      dispatch(actionAutoLoginSuccess(newUserData.data));
+    } catch (error) {
+      alert("xảy ra lỗi");
+      console.log(error);
+    }
+  };
   useEffect(() => {
     document.title = "Trang cá nhân";
   }, []);
@@ -42,7 +73,11 @@ const UserProfile = () => {
   }, [searchParams, splittedData.length]);
   const ControlDisplay = () => {
     if (_.isEmpty(splittedData)) {
-      return <h3>Bạn chưa đăng ký khóa học nào tại Edemy</h3>;
+      return (
+        <h3 className="col-span-4 text-center text-purple-700 font-bold text-2xl pt-14">
+          Bạn chưa đăng ký khóa học nào tại Edemy!
+        </h3>
+      );
     } else {
       return splittedData[displayPage - 1].map((item, index) => {
         return (
@@ -52,6 +87,7 @@ const UserProfile = () => {
             tenKhoaHoc={item.tenKhoaHoc}
             hinhAnh={item.hinhAnh}
             danhGia={item.danhGia}
+            actionHuyKhoaHoc={handleCancelRegistration}
           />
         );
       });
@@ -82,7 +118,7 @@ const UserProfile = () => {
           <div className="mt-4">
             <Pagination
               current={displayPage}
-              hideOnSinglePage={false}
+              hideOnSinglePage={true}
               pageSize={itemsPerPage}
               total={subscribedCoures.length}
               onChange={handleChangePage}

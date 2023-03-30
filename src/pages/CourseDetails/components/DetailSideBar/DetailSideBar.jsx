@@ -6,7 +6,9 @@ import { useEffect, useState } from "react";
 const DetailSideBar = (props) => {
   const { handleRegister, handleCancelRegistration } = props || {};
   const [isRegisted, setIsRegisted] = useState(false);
-  const userInfo = useSelector((store) => store.authReducer.userInfo);
+  const chiTietKhoaHocGhiDanh = useSelector(
+    (store) => store.authReducer.userInfo.chiTietKhoaHocGhiDanh
+  );
   const thongTinKhoaHoc = useSelector(
     (state) => state.detailReducer.thongTinKhoaHoc
   );
@@ -24,11 +26,12 @@ const DetailSideBar = (props) => {
   }, []);
   useEffect(() => {
     const maKhoaHoc = thongTinKhoaHoc.maKhoaHoc;
-    const registedList = userInfo.chiTietKhoaHocGhiDanh;
-    if (registedList.find((item) => item.maKhoaHoc === maKhoaHoc)) {
+    if (chiTietKhoaHocGhiDanh.find((item) => item.maKhoaHoc === maKhoaHoc)) {
       setIsRegisted(true);
+    } else {
+      setIsRegisted(false);
     }
-  }, [userInfo, thongTinKhoaHoc]);
+  }, [chiTietKhoaHocGhiDanh, thongTinKhoaHoc]);
   const ControlRegisterBtn = () => {
     if (isRegisted) {
       return (
@@ -36,7 +39,7 @@ const DetailSideBar = (props) => {
           className="h-12 w-full tracking-wider hover:bg-purple-800"
           onClick={() => handleCancelRegistration()}
         >
-          Đã đăng ký
+          Hủy đăng ký
         </button>
       );
     } else {
@@ -45,7 +48,7 @@ const DetailSideBar = (props) => {
           className="h-12 w-full tracking-wider hover:bg-purple-800"
           onClick={() => handleRegister()}
         >
-          Đăng Ký
+          Đăng Ký Khóa Học
         </button>
       );
     }

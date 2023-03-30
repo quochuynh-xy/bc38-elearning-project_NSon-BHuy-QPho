@@ -36,7 +36,7 @@ const SmallItem = styled.div`
 `;
 const CourseItemSmall = (props) => {
     const navigate = useNavigate();
-    const {maKhoaHoc, tenKhoaHoc, hinhAnh, danhGia} = props || {}
+    const {maKhoaHoc, tenKhoaHoc, hinhAnh, danhGia, actionHuyKhoaHoc} = props || {}
   return (
     <SmallItem className="Item-small h- rounded-sm shadow-md border border-solid border-stone-300">
       <div className="quickPreview overflow-hidden">
@@ -77,7 +77,9 @@ const CourseItemSmall = (props) => {
               items: [
                 {
                   label: (
-                    <button className="font-bold hover:text-purple-800 duration-300 hover:underline underline-offset-2">
+                    <button
+                      onClick={() => actionHuyKhoaHoc(maKhoaHoc)}
+                    className="font-bold hover:text-purple-800 duration-300 hover:underline underline-offset-2">
                       Hủy đăng ký
                     </button>
                   ),
