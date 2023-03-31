@@ -10,13 +10,19 @@ import Pagination from "../../components/Pagination/Pagination";
 import _ from "lodash";
 import { BsFilter } from "react-icons/bs";
 import Header from "../../components/Header/Header";
+import { actionDangKyKhoaHoc, actionHuyDangKyKhoaHoc } from "./services";
+import { autoLogin } from "../Authentication/services";
+import { actionAutoLoginSuccess } from "../Authentication/authReducer";
+import Swal from "sweetalert2";
 const CourseGroup = () => {
+  // Danh sách khóa học lấy về
   const courseList = useSelector(
     (state) => state.courseGroupReducer.danhSachKhoaHoc
   );
   const loadingStatus = useSelector(
     (store) => store.courseGroupReducer.loadStatus
   );
+  const userBasicInfo = useSelector(store => store.authReducer.userInfo.userBasicInfo);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
@@ -49,9 +55,81 @@ const CourseGroup = () => {
       setCurrentPage(1)
     }
   }, [searchParams]);
-  const handleSubscribe = () => {
-    console.log("Đây là trang danh mục khóa học");
-  }
+  // Đăng ký khóa học
+  const handleSubscribe = useCallback(async (maKhoaHoc) => {
+    const token = localStorage.getItem("elearningToken");
+    // Chưa đăng nhập
+    if(!userBasicInfo?.taiKhoan) {
+      Swal.fire({
+        title: 'Bạn chưa đăng nhập.',
+        text: "Vui lòng đăng nhập để hoàn thành thao tác!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#6b21a8',
+        cancelButtonColor: '#777',
+        confirmButtonText: 'Đăng nhập',
+        cancelButtonText: "Hủy bỏ"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/thamGia")
+        }
+      })
+      return
+    }
+    const data = {
+      maKhoaHoc: maKhoaHoc,
+      taiKhoan: userBasicInfo.taiKhoan
+    }
+    try {
+      let res = await actionDangKyKhoaHoc(data, token);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: res.data,
+        showConfirmButton: false,
+        timer: 2000
+      })
+      let newUserData = await autoLogin(token);
+      dispatch(actionAutoLoginSuccess(newUserData.data));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: error.response.data,
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
+  }, [navigate, userBasicInfo.taiKhoan, dispatch])
+  const handleUnSubscribe = useCallback(async (maKhoaHoc) => {
+    const token = localStorage.getItem("elearningToken");
+    const data = {
+      maKhoaHoc: maKhoaHoc,
+      taiKhoan: userBasicInfo.taiKhoan
+    }
+    try {
+      let res = await actionHuyDangKyKhoaHoc(data, token);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: res.data,
+        showConfirmButton: false,
+        timer: 2000
+      })
+      let newUserData = await autoLogin(token);
+      dispatch(actionAutoLoginSuccess(newUserData.data));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: "Có lỗi xảy ra, vui lòng thử lại",
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
+  }, [userBasicInfo.taiKhoan, dispatch])
   const ControlDisplay = useCallback(() => {
     if (loadingStatus === "PENDING") {
       return (
@@ -66,10 +144,10 @@ const CourseGroup = () => {
         return navigate("/")
       }
       return spiltedData[currentPage - 1].map((item, index) => (
-        <ItemWide data={item} key={index} handleSubscribe={handleSubscribe}/>
+        <ItemWide data={item} key={index} handleSubscribe={handleSubscribe} handleUnSubscribe={handleUnSubscribe}/>
       ));
     }
-  }, [loadingStatus, spiltedData, currentPage, navigate]);
+  }, [loadingStatus, spiltedData, currentPage, navigate, handleSubscribe, handleUnSubscribe]);
   const handleChangePage = (page, pageSize) => {
     setCurrentPage(page);
     setSearchParams({ page: page });

@@ -8,7 +8,17 @@ import { useSearchParams } from "react-router-dom";
 import { Spin } from "antd";
 import { BsFilter } from "react-icons/bs";
 import Header from "../../components/Header/Header";
+import { actionDangKyKhoaHoc, actionHuyDangKyKhoaHoc } from "./services";
+import { autoLogin } from "../Authentication/services";
+import { actionAutoLoginSuccess } from "../Authentication/authReducer";
+import Swal from "sweetalert2";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 const AllCourses = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const userBasicInfo = useSelector(store => store.authReducer.userInfo.userBasicInfo);
   const [searchParams, setSearchParams] = useSearchParams();
   const [loadedData, setLoadedData] = useState({});
   const [courseArr, setCourseArr] = useState([]);
@@ -30,6 +40,80 @@ const AllCourses = () => {
     setSearchParams({ ...searchParams, page: page });
     setLoadStatus("PENDING");
   };
+  const handleSubscribe = useCallback(async (maKhoaHoc) => {
+    const token = localStorage.getItem("elearningToken");
+    // Chưa đăng nhập
+    if(!userBasicInfo?.taiKhoan) {
+      Swal.fire({
+        title: 'Bạn chưa đăng nhập.',
+        text: "Vui lòng đăng nhập để hoàn thành thao tác!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#6b21a8',
+        cancelButtonColor: '#777',
+        confirmButtonText: 'Đăng nhập',
+        cancelButtonText: "Hủy bỏ"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/thamGia")
+        }
+      })
+      return
+    }
+    const data = {
+      maKhoaHoc: maKhoaHoc,
+      taiKhoan: userBasicInfo.taiKhoan
+    }
+    try {
+      let res = await actionDangKyKhoaHoc(data, token);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: res.data,
+        showConfirmButton: false,
+        timer: 2000
+      })
+      let newUserData = await autoLogin(token);
+      dispatch(actionAutoLoginSuccess(newUserData.data));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: error.response.data,
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
+  }, [navigate, userBasicInfo.taiKhoan, dispatch])
+  const handleUnSubscribe = useCallback(async (maKhoaHoc) => {
+    const token = localStorage.getItem("elearningToken");
+    const data = {
+      maKhoaHoc: maKhoaHoc,
+      taiKhoan: userBasicInfo.taiKhoan
+    }
+    try {
+      let res = await actionHuyDangKyKhoaHoc(data, token);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: res.data,
+        showConfirmButton: false,
+        timer: 2000
+      })
+      let newData = await autoLogin(token);
+      dispatch(actionAutoLoginSuccess(newData.data));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: "Có lỗi xảy ra, vui lòng thử lại",
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
+  }, [userBasicInfo.taiKhoan, dispatch])
   return (
     <Layout>
       <Header />
@@ -51,7 +135,7 @@ const AllCourses = () => {
       </section>
       <section className="container mx-auto">
         {courseArr.map((item, index) => (
-          <ItemWide key={index} data={item} />
+          <ItemWide key={index} data={item} handleSubscribe={handleSubscribe} handleUnSubscribe={handleUnSubscribe}/>
         ))}
         <div className="h-8 text-center relative">
           {loadStatus !== "DONE" ? (

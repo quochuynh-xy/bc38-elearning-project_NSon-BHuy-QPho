@@ -63,7 +63,7 @@ const UserProfile = () => {
     const watchingPage = +searchParams.get("page");
     if (
       !isNaN(watchingPage) &&
-      watchingPage < splittedData.length &&
+      watchingPage <= splittedData.length &&
       watchingPage
     ) {
       setDisplayPage(watchingPage);

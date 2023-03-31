@@ -8,3 +8,15 @@ export const fetchKhoaHocPhanTrang = (page, tenKhoaHoc) => https.get("api/QuanLy
         maNhom: maNhom,
     }
 })
+export const actionDangKyKhoaHoc = (data, token) =>
+  https.post("api/QuanLyKhoaHoc/DangKyKhoaHoc", data, {
+    headers: {
+      Authorization : "Bearer " + token
+    },
+  });
+  export const actionHuyDangKyKhoaHoc = (data, token) =>
+  https.post("api/QuanLyKhoaHoc/HuyGhiDanh", data, {
+    headers: {
+      Authorization : "Bearer " + token
+    },
+  });
