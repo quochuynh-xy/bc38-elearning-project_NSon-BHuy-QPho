@@ -13,6 +13,9 @@ import Pagination from "../../components/Pagination/Pagination";
 import _ from "lodash";
 import Header from "../../components/Header/Header";
 const SearchingCourses = () => {
+  // Gán chức năng tìm kiếm cho ô tìm kiếm 
+  // Lấy từ khóa
+  // Xử lý gán chức năng đăng ký - hủy đăng ký trên các item.
   const { tuKhoa } = useParams();
   const dispatch = useDispatch();
   const searchResult = useSelector(
