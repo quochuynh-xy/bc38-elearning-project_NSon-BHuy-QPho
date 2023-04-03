@@ -27,7 +27,7 @@ const Header = () => {
           <div className="profile">
             <img
               className="w-8 h-8 rounded-sm"
-              src="https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/d6/d6b8ca99028c63709c30f9a3fa21d86eec437767.jpg"
+              src="https://i.pravatar.cc/150?img=56"
               alt="avatar"
             />
             <div className="avatar__action absolute z-10">

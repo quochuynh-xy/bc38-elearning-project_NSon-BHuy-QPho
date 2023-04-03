@@ -6,6 +6,8 @@ import CourseGroup from "../pages/CourseGroup/CourseGroup";
 import AllCourses from "../pages/AllCourses/AllCourses";
 import Authentication from "../pages/Authentication/Authentication";
 import UserProfile from "../pages/UserProfile/UserProfile";
+import RegistedCourses from "../pages/UserProfile/components/RegistedCourses/RegistedCourses";
+import UserInfomation from "../pages/UserProfile/components/UserInfomation/UserInfomation";
 export const routes = [
   {
     path: "/",
@@ -48,11 +50,21 @@ export const routes = [
     Component: UserProfile,
     isPublic: false,
     isAuth: false,
+    childs: [
+      {
+        path: "/caNhan",
+        Component: UserInfomation,
+      },
+      {
+        path: "khoaHocDangKy",
+        Component: RegistedCourses,
+      },
+    ],
   },
-//   {
-//     path: "*",
-//     Component: PageNotFound,
-//     isPublic: false,
-//     isAuth: false,
-//   },
+  //   {
+  //     path: "*",
+  //     Component: PageNotFound,
+  //     isPublic: false,
+  //     isAuth: false,
+  //   },
 ];

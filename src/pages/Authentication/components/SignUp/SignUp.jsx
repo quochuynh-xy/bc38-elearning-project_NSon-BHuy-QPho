@@ -39,7 +39,7 @@ const SignUp = (props) => {
       matKhau: "",
       hoTen: "",
       soDT: "",
-      maNhom: "",
+      maNhom: "GP10",
       email: "",
     },
     validationSchema: Yup.object().shape({
@@ -47,14 +47,14 @@ const SignUp = (props) => {
         .matches(/^[a-zA-Z0-9._]+$/, "Tên tài khoản không hợp lệ.")
         .required("Bắt buộc.")
         .min(6, "Ít nhất 6 ký tự.")
-        .max(12, "Tối đa 12 ký tự."),
+        .max(16, "Tối đa 16 ký tự."),
       matKhau: Yup.string()
         .matches(
           /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
           "Chữ thường, chữ hoa, số & ký tự đặc biệt."
         )
         .min(8, "Tối thiểu 8 ký tự.")
-        .max(16, "Tối đa 16 ký tự.")
+        .max(20, "Tối đa 20 ký tự.")
         .required("Bắt buộc."),
       hoTen: Yup.string()
         .matches(
@@ -170,12 +170,12 @@ const SignUp = (props) => {
                 {formik.touched.soDT && formik.errors.soDT}
               </span>
             </div>
-            <div className="input__account">
+            {/* <div className="input__account">
               <input
                 required
                 name="maNhom"
                 id="regGroup"
-                className="form-input uppercase"
+                className="form-input"
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 value={formik.values.maNhom}
@@ -187,7 +187,7 @@ const SignUp = (props) => {
               <span className="input__err-mes">
                 {formik.touched.maNhom && formik.errors.maNhom}
               </span>
-            </div>
+            </div> */}
             <div className="input__account">
               <input
                 required

@@ -1,128 +1,59 @@
-import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import Layout from "../../HOCs/Layout";
 import Header from "../../components/Header/Header";
-import CourseItemSmall from "../../components/CourseItemSmall/CourseItemSmall";
-import { useDispatch, useSelector } from "react-redux";
-import _ from "lodash";
-import Swal from "sweetalert2";
-import Pagination from "../../components/Pagination/Pagination";
-import { useSearchParams } from "react-router-dom";
-import { requestHuyGhiDanh } from "./services";
-import { autoLogin } from "../Authentication/services";
-import { actionAutoLoginSuccess } from "../Authentication/authReducer";
+import { Avatar } from "antd";
+// import RegistedCourses from "./components/RegistedCourses/RegistedCourses";
+// import UserInfomation from "./components/UserInfomation/UserInfomation";
+import { NavLink } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 const UserProfile = () => {
-  const dispatch = useDispatch();
-  const subscribedCoures = useSelector(
-    (store) => store.authReducer.userInfo.chiTietKhoaHocGhiDanh
-  );
-  const userInfo = useSelector(
+  const userBasicInfo = useSelector(
     (store) => store.authReducer.userInfo.userBasicInfo
   );
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [splittedData, setSplittedData] = useState([]);
-  const [displayPage, setDisplayPage] = useState(1);
-  const itemsPerPage = 8;
-  const handleCancelRegistration = async (maKhoaHoc) => {
-    const token = localStorage.getItem("elearningToken");
-    const data = {
-      maKhoaHoc: maKhoaHoc,
-      taiKhoan: userInfo.taiKhoan,
-    };
-    try {
-      let res = await requestHuyGhiDanh(data, token);
-      Swal.fire({
-        position: "center",
-        icon: "success",
-        title: "Hủy đăng ký thành công",
-        showConfirmButton: false,
-        timer: 2000,
-      });
-      console.log(res.data);
-      let newUserData = await autoLogin(token);
-      dispatch(actionAutoLoginSuccess(newUserData.data));
-    } catch (error) {
-      alert("xảy ra lỗi");
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    document.title = "Trang cá nhân";
-  }, []);
-  useEffect(() => {
-    if (
-      subscribedCoures.length <= itemsPerPage &&
-      !_.isEmpty(subscribedCoures)
-    ) {
-      setSplittedData([subscribedCoures]);
-    } else {
-      let chunked = _.chunk(subscribedCoures, itemsPerPage);
-      setSplittedData(chunked);
-    }
-  }, [subscribedCoures, itemsPerPage]);
-  useEffect(() => {
-    const watchingPage = +searchParams.get("page");
-    if (
-      !isNaN(watchingPage) &&
-      watchingPage <= splittedData.length &&
-      watchingPage
-    ) {
-      setDisplayPage(watchingPage);
-    } else {
-      setDisplayPage(1);
-    }
-  }, [searchParams, splittedData.length]);
-  const ControlDisplay = () => {
-    if (_.isEmpty(splittedData)) {
-      return (
-        <h3 className="col-span-4 text-center text-purple-700 font-bold text-2xl pt-14">
-          Bạn chưa đăng ký khóa học nào tại Edemy!
-        </h3>
-      );
-    } else {
-      return splittedData[displayPage - 1].map((item, index) => {
-        return (
-          <CourseItemSmall
-            key={index}
-            maKhoaHoc={item.maKhoaHoc}
-            tenKhoaHoc={item.tenKhoaHoc}
-            hinhAnh={item.hinhAnh}
-            danhGia={item.danhGia}
-            actionHuyKhoaHoc={handleCancelRegistration}
-          />
-        );
-      });
-    }
-  };
-  const handleChangePage = (page, pageSize) => {
-    setSearchParams({ ...searchParams, page: page });
-    setDisplayPage(page);
-  };
   return (
     <Layout>
       <Header />
-      <section className="mylearning bg-stone-900">
-        <div className="learning-header container mx-auto pt-10 text-stone-100 ">
-          <h3 className="header__title lg:text-3xl font-bold font-serif pb-6">
-            Khóa học của tôi
+      <section className="mylearning bg-stone-900 mt-8">
+        <div className="learning-header container mx-auto py-5 text-stone-100 ">
+          <h3 className="header__title lg:text-3xl font-bold font-serif">
+            Thông tin tài khoản
           </h3>
-          <div className="header__tabs-list-control font-bold text-start text-base pb-2">
-            <ul>
-              <li>Khóa học đã đăng ký</li>
-            </ul>
-          </div>
         </div>
-        <div className="learning__tabs bg-white pt-4">
-          <div className="container mx-auto grid gap-4 grid-cols-2 lg:grid-cols-4 ">
-            <ControlDisplay />
-          </div>
-          <div className="mt-4">
-            <Pagination
-              current={displayPage}
-              hideOnSinglePage={true}
-              pageSize={itemsPerPage}
-              total={subscribedCoures.length}
-              onChange={handleChangePage}
-            />
+        <div className="info__tabs bg-white pt-14 lg:pt-32">
+          <div className="container mx-auto grid grid-cols-2 md:grid-cols-5 md:gap-4">
+            {/* Khu vực điều hướng */}
+            <div className="navigator mb-4 col-span-2 md:col-span-1">
+              <div className="flex flex-col items-center pb-2 mb-4 border-b-2 border-solid border-stone-500">
+                <Avatar size={150} src="https://i.pravatar.cc/150?img=56" />
+                <h3 className="font-semibold text-center mt-2 text-lg">
+                  {userBasicInfo.hoTen}
+                </h3>
+                <p>Học viên Cybersoft</p>
+              </div>
+              <div id="profileLink">
+                <ul className="font-semibold lg:leading-8">
+                  <li>
+                    <NavLink to="/caNhan" end>Thông tin hồ sơ</NavLink>
+                  </li>
+                  <li>
+                    <NavLink to="/caNhan/khoaHocDangKy" exact="true">Khóa học của tôi</NavLink>
+                  </li>
+                  <li>
+                    <a href="#url">Kế hoạch thanh toán</a>
+                  </li>
+                  <li>
+                    <a href="#url">Bảo mật tài khoản</a>
+                  </li>
+                  <li>
+                    <a href="#url">Đóng tài khoản</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            {/* Khu vực hiển thị */}
+            <div className="show-data col-span-2 md:col-span-4">
+              <Outlet />
+            </div>
           </div>
         </div>
       </section>

@@ -9,30 +9,41 @@ const NotificationBox = () => {
   const pageMessage = useSelector((store) => store.authReducer.pageMessage);
   const [api, contextHolder] = notification.useNotification();
   const dispatch = useDispatch();
-  const openSuccessNotify = useCallback((type, message) => {
-    api[type]({
-      message: "Thành công",
-      description: message,
-      duration: 6,
-      onnClose: dispatch(actionResetLoadingStatus())
-    });
-  },[api, dispatch]);
-  const openErrorNotify = useCallback((type, message) => {
-    api[type]({
-      message: "Thất bại",
-      description: message,
-      duration: 6,
-      onnClose: dispatch(actionResetLoadingStatus())
-    });
-  },[api, dispatch]);
-  const openPendingNotify = useCallback((type) => {
-    api[type]({
-      message: "Đang xử lý thông tin",
-      description: `Vui lòng chờ trong giây lát.`,
-      duration: 6,
-      onnClose: dispatch(actionResetLoadingStatus())
-    });
-  },[api, dispatch]);
+  const openSuccessNotify = useCallback(
+    (type, message) => {
+      api[type]({
+        message: "Thành công",
+        description: message,
+        duration: 6,
+        onClose: () => {
+          dispatch(actionResetLoadingStatus());
+        },
+      });
+    },
+    [api, dispatch]
+  );
+  const openErrorNotify = useCallback(
+    (type, message) => {
+      api[type]({
+        message: "Thất bại",
+        description: message,
+        duration: 6,
+        onClose: () => dispatch(actionResetLoadingStatus()),
+      });
+    },
+    [api, dispatch]
+  );
+  const openPendingNotify = useCallback(
+    (type) => {
+      api[type]({
+        message: "Đang xử lý thông tin",
+        description: `Vui lòng chờ trong giây lát.`,
+        duration: 6,
+        onClose: () => dispatch(actionResetLoadingStatus()),
+      });
+    },
+    [api, dispatch]
+  );
   useEffect(() => {
     switch (loadingStatus) {
       case "SUCCESS": {
@@ -51,7 +62,13 @@ const NotificationBox = () => {
         return;
       }
     }
-  }, [loadingStatus, pageMessage, openSuccessNotify, openPendingNotify, openErrorNotify]);
+  }, [
+    loadingStatus,
+    pageMessage,
+    openSuccessNotify,
+    openPendingNotify,
+    openErrorNotify,
+  ]);
   return <>{contextHolder}</>;
 };
 export default NotificationBox;

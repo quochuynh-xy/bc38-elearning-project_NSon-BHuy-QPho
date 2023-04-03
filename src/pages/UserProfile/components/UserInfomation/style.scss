@@ -1,0 +1,44 @@
+@import "../../../../styles/const.scss";
+@import "../../../../styles/mixin.scss";
+#profileLink {
+    ul li {
+        margin-bottom: 4px;
+        a {
+            display: block;
+            padding-left: 8px;
+            transition-duration: .3s;
+            &:hover{
+                color: $cl-white-1;
+                background-color: $bg-grey-4;
+            }
+            &.active {
+                background-color: $bg-grey-3;
+                color: #ffff;
+            }
+        }
+    }
+}
+.ant-modal .ant-modal-footer {
+    .ant-btn {
+        border-radius: 4px;
+        border: 1px solid #2f2f2f;
+        font-weight: 700;
+        height: 40px;
+        &.ant-btn-primary {
+            background-color: $bg-black-1;
+            color: $cl-white-1;
+            &:hover {
+                color: $cl-primary;
+            }
+        }
+        &.ant-btn-default {
+            background-color: $bg-white-1;
+            &:hover {
+                color: $cl-primary;
+            }
+        }
+        &:hover {
+            background-color: $bg-yellow-1;
+        }
+    }
+}
