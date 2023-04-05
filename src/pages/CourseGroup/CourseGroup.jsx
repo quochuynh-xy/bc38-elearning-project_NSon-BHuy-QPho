@@ -12,8 +12,9 @@ import { BsFilter } from "react-icons/bs";
 import Header from "../../components/Header/Header";
 import { actionDangKyKhoaHoc, actionHuyDangKyKhoaHoc } from "./services";
 import { autoLogin } from "../Authentication/services";
-import { actionAutoLoginSuccess } from "../Authentication/authReducer";
+import { actionGetUserInfo } from "../Authentication/authReducer";
 import Swal from "sweetalert2";
+import SidebarNav from "../../components/SidebarNav/SidebarNav";
 const CourseGroup = () => {
   // Danh sách khóa học lấy về
   const courseList = useSelector(
@@ -90,7 +91,7 @@ const CourseGroup = () => {
         timer: 2000
       })
       let newUserData = await autoLogin(token);
-      dispatch(actionAutoLoginSuccess(newUserData.data));
+      dispatch(actionGetUserInfo(newUserData.data));
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -118,7 +119,7 @@ const CourseGroup = () => {
         timer: 2000
       })
       let newUserData = await autoLogin(token);
-      dispatch(actionAutoLoginSuccess(newUserData.data));
+      dispatch(actionGetUserInfo(newUserData.data));
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -156,6 +157,7 @@ const CourseGroup = () => {
   return (
     <Layout>
     <Header/>
+    <SidebarNav/>
       <section className="search-info container mx-auto py-8">
         <h3 className="text-stone-800 text-2xl font-bold pb-4">
           Danh sách các khóa học{" "}

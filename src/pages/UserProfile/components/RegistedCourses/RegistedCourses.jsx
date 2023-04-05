@@ -7,7 +7,7 @@ import Pagination from "../../../../components/Pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
 import { requestHuyGhiDanh } from "../../services";
 import { autoLogin } from "../../../Authentication/services";
-import { actionAutoLoginSuccess } from "../../../Authentication/authReducer";
+import { actionGetUserInfo } from "../../../Authentication/authReducer";
 const RegistedCourses = () => {
   const dispatch = useDispatch();
   const subscribedCoures = useSelector(
@@ -37,7 +37,7 @@ const RegistedCourses = () => {
       });
       console.log(res.data);
       let newUserData = await autoLogin(token);
-      dispatch(actionAutoLoginSuccess(newUserData.data));
+      dispatch(actionGetUserInfo(newUserData.data));
     } catch (error) {
       alert("xảy ra lỗi");
       console.log(error);

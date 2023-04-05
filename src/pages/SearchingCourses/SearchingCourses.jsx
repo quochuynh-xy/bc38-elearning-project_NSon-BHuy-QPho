@@ -12,6 +12,7 @@ import { useSearchParams } from "react-router-dom";
 import Pagination from "../../components/Pagination/Pagination";
 import _ from "lodash";
 import Header from "../../components/Header/Header";
+import SidebarNav from "../../components/SidebarNav/SidebarNav";
 const SearchingCourses = () => {
   // Gán chức năng tìm kiếm cho ô tìm kiếm 
   // Lấy từ khóa
@@ -63,6 +64,7 @@ const SearchingCourses = () => {
   return (
     <Layout>
       <Header/>
+      <SidebarNav/>
       <section className="search-info container mx-auto py-8">
         <h3 className="text-stone-800 text-2xl font-bold pb-4">
           Hiển thị kết quả cho "{tuKhoa}".

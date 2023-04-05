@@ -45,7 +45,7 @@ const authenReducer = createSlice({
       state.pageMessage = action.payload;
       state.userInfo.userBasicInfo = {};
     },
-    actionAutoLoginSuccess: (state, action) => {
+    actionGetUserInfo: (state, action) => {
       const {
         chiTietKhoaHocGhiDanh,
         email,
@@ -83,7 +83,7 @@ export const {
   actionResetLoadingStatus,
   actionDangNhapThanhCong,
   actionDangNhapThatBai,
-  actionAutoLoginSuccess,
+  actionGetUserInfo,
   actionLogOut
 } = authenReducer.actions;
 //

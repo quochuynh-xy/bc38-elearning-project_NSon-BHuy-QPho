@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { actionFetchDanhMucKhoaHoc } from "./homeReducer";
 import Header from "../../components/Header/Header";
+import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import Footer from "../../components/Footer/Footer";
 import Carousel from "./components/Carousel/Carousel";
 import TabAllCourses from "./components/TabAllCourses/TabAllCourses";
@@ -23,6 +24,7 @@ const Home = () => {
   return (
     <Layout>
       <Header />
+      <SidebarNav/>
       <Carousel />
       <TabAllCourses danhMucKhoaHoc={danhMucKhoaHoc} />
       <Feedback />

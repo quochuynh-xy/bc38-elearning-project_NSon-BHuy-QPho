@@ -10,11 +10,12 @@ import { BsFilter } from "react-icons/bs";
 import Header from "../../components/Header/Header";
 import { actionDangKyKhoaHoc, actionHuyDangKyKhoaHoc } from "./services";
 import { autoLogin } from "../Authentication/services";
-import { actionAutoLoginSuccess } from "../Authentication/authReducer";
+import { actionGetUserInfo } from "../Authentication/authReducer";
 import Swal from "sweetalert2";
 import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import SidebarNav from "../../components/SidebarNav/SidebarNav";
 const AllCourses = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -74,7 +75,7 @@ const AllCourses = () => {
         timer: 2000
       })
       let newUserData = await autoLogin(token);
-      dispatch(actionAutoLoginSuccess(newUserData.data));
+      dispatch(actionGetUserInfo(newUserData.data));
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -102,7 +103,7 @@ const AllCourses = () => {
         timer: 2000
       })
       let newData = await autoLogin(token);
-      dispatch(actionAutoLoginSuccess(newData.data));
+      dispatch(actionGetUserInfo(newData.data));
     } catch (error) {
       console.log(error);
       Swal.fire({
@@ -117,6 +118,7 @@ const AllCourses = () => {
   return (
     <Layout>
       <Header />
+      <SidebarNav/>
       <section className="search-info container mx-auto py-8">
         <h3 className="text-stone-800 text-2xl font-bold pb-4">
           Danh sách khóa học tại Edemy.

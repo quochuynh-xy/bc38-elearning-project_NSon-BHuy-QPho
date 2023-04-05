@@ -9,10 +9,10 @@ import { BsCheck, BsFillPlayCircleFill, BsClockFill } from "react-icons/bs";
 import { Collapse } from "antd";
 import Header from "../../components/Header/Header";
 import { requestDangKyKhoaHoc, requestHuyGhiDanh } from "./services";
-import { actionAutoLoginSuccess } from "../Authentication/authReducer";
+import { actionGetUserInfo } from "../Authentication/authReducer";
 import { autoLogin } from "../Authentication/services";
 import Swal from "sweetalert2";
-
+import SidebarNav from "../../components/SidebarNav/SidebarNav";
 const { Panel } = Collapse;
 const CourseDetails = () => {
   const params = useParams();
@@ -57,7 +57,7 @@ const CourseDetails = () => {
         return autoLogin(token)
       })
       .then(res => {
-        dispatch(actionAutoLoginSuccess(res.data))
+        dispatch(actionGetUserInfo(res.data))
       })
       .catch((err) => {
         Swal.fire({
@@ -88,7 +88,7 @@ const CourseDetails = () => {
         return autoLogin(token)
       })
       .then(res => {
-        dispatch(actionAutoLoginSuccess(res.data))
+        dispatch(actionGetUserInfo(res.data))
       })
       .catch((err) => {
         Swal.fire({
@@ -104,6 +104,7 @@ const CourseDetails = () => {
   return (
     <Layout>
       <Header />
+      <SidebarNav/>
       <DetailSideBar
         handleRegister={handleRegister}
         handleCancelRegistration={handleCancelRegistration}

@@ -7,7 +7,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-
+import SidebarNav from "../../components/SidebarNav/SidebarNav";
 const Authentication = () => {
   const navigate = useNavigate();
   const [changePage, setChangePage] = useState(true); // true: Đăng nhập - false: Đăng ký;
@@ -33,6 +33,7 @@ const Authentication = () => {
   return (
     <Layout>
       <Header />
+      <SidebarNav/>
       {changePage === true ? <SignIn switchSignUp={handleSetPage}/> : <SignUp switchSignIn={handleSetPage}/>}
       <NotificationBox />
     </Layout>

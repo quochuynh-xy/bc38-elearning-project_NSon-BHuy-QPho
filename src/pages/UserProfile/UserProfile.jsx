@@ -6,13 +6,31 @@ import { Avatar } from "antd";
 // import UserInfomation from "./components/UserInfomation/UserInfomation";
 import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
+import { updateUserData } from "./services";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { actionGetUserInfo } from "../Authentication/authReducer";
+import SidebarNav from "../../components/SidebarNav/SidebarNav";
 const UserProfile = () => {
+  const dispatch = useDispatch();
   const userBasicInfo = useSelector(
     (store) => store.authReducer.userInfo.userBasicInfo
   );
+  useEffect(()=> {
+    const update = async () => {
+      try {
+        let res = await updateUserData();
+        dispatch(actionGetUserInfo(res.data))
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    update()
+  }, [dispatch])
   return (
     <Layout>
       <Header />
+      <SidebarNav/>
       <section className="mylearning bg-stone-900 mt-8">
         <div className="learning-header container mx-auto py-5 text-stone-100 ">
           <h3 className="header__title lg:text-3xl font-bold font-serif">

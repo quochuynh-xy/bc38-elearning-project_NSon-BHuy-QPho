@@ -13,3 +13,11 @@ export const requestChangeInfo = (thongtin) => {
         }
     })
 }
+export const updateUserData = () => {
+  const token = localStorage.getItem("elearningToken");
+  return https.post("api/QuanLyNguoiDung/ThongTinNguoiDung", undefined, {
+    headers: {
+      Authorization: "Bearer " + token
+    }
+  });
+}

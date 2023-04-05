@@ -2,9 +2,10 @@ import { useDispatch } from "react-redux";
 import { useCallback, useEffect } from "react";
 import { https } from "../services/config";
 import {
-  actionAutoLoginSuccess,
+  actionGetUserInfo,
   actionLogOut,
 } from "../pages/Authentication/authReducer";
+// HOC thực hiện việc kiểm tra và đăng nhập tự động khi người dùng truy cập
 const HandleUserAccess = (props) => {
   const token = localStorage.getItem("elearningToken");
   const dispatch = useDispatch();
@@ -19,8 +20,7 @@ const HandleUserAccess = (props) => {
       const login = async () => {
         try {
           const res = await promise(savedToken);
-          dispatch(actionAutoLoginSuccess(res.data));
-          // console.log(res.data);
+          dispatch(actionGetUserInfo(res.data));
         } catch (error) {
           dispatch(actionLogOut());
         }
