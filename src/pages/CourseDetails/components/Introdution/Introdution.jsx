@@ -6,14 +6,15 @@ import Rating from "@mui/material/Rating";
 import { styled } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 import imgBackup from "../../../../assets/img/blank_wide.jpg";
+import { useState, useEffect } from "react";
 const CustomBreadcrums = styled(Breadcrumbs)({
-  "a": {
+  a: {
     color: "#cec0fc",
     fontWeight: 700,
     fontSize: "14px",
     "&:hover": {
-      textDecoration: "underline"
-    }
+      textDecoration: "underline",
+    },
   },
   ".MuiBreadcrumbs-separator": {
     margin: "0 4px",
@@ -25,10 +26,16 @@ const CustomRating = styled(Rating)({
   fontSize: "1.1rem",
   marginLeft: 0,
 });
-const Introdution = () => {
+//
+const Introdution = (props) => {
+  const { handleRegister, handleCancelRegistration } = props || {};
   const thongTinKhoaHoc = useSelector(
     (state) => state.detailReducer.thongTinKhoaHoc
   );
+  const chiTietKhoaHocGhiDanh = useSelector(
+    (store) => store.authReducer.userInfo.chiTietKhoaHocGhiDanh
+  );
+  const [isRegisted, setIsRegisted] = useState(false);
   const breadcrumbs = [
     <Link underline="hover" key="1" color="inherit" to="/">
       Home
@@ -42,6 +49,14 @@ const Introdution = () => {
       {thongTinKhoaHoc.danhMucKhoaHoc?.tenDanhMucKhoaHoc}
     </Link>,
   ];
+  useEffect(() => {
+    const maKhoaHoc = thongTinKhoaHoc.maKhoaHoc;
+    if (chiTietKhoaHocGhiDanh.find((item) => item.maKhoaHoc === maKhoaHoc)) {
+      setIsRegisted(true);
+    } else {
+      setIsRegisted(false);
+    }
+  }, [chiTietKhoaHocGhiDanh, thongTinKhoaHoc]);
   return (
     <section className="introduction py-4">
       <div className="container mx-auto">
@@ -94,9 +109,21 @@ const Introdution = () => {
               </div>
             </div>
             <div className="overview__actions lg:hidden pt-6">
-              <button className="btn__sub h-12 w-full tracking-wider hover:bg-purple-800">
-                Đăng ký
-              </button>
+              {!isRegisted ? (
+                <button
+                  onClick={handleRegister}
+                  className="btn__sub h-12 w-full tracking-wider hover:bg-purple-800"
+                >
+                  Đăng ký
+                </button>
+              ) : (
+                <button
+                  onClick={handleCancelRegistration}
+                  className="btn__sub h-12 w-full tracking-wider hover:bg-purple-800"
+                >
+                  Hủy đăng ký
+                </button>
+              )}
               <div className="py-2 mt-8 flex text-sm font-semibold underline justify-around">
                 <a className="hover:opacity-80 duration-300" href="#url">
                   Chia sẻ

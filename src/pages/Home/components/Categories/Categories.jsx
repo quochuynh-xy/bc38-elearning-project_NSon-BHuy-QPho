@@ -12,9 +12,9 @@ const Categories = () => {
   return (
     <div className="categories container mx-auto">
       <div className="categories__title">
-        <h3>Danh mục các lĩnh vực được quan tâm nhiều tại Edemy.</h3>
+        <h3 className="text-center md:text-start">Danh mục các lĩnh vực được quan tâm nhiều tại Edemy.</h3>
       </div>
-      <div className="categories__list flex flex-wrap">
+      <div className="categories__list flex flex-wrap px-14 md:px-8 lg:px-0">
         <div className="list__item basis-6/12 md:basis-3/12 px-2">
           <div className="w-full h-fit overflow-hidden">
             <Link to="/danhMuc/TuDuy" className="w-full">

@@ -2,6 +2,7 @@
 @import "../../../../styles/mixin.scss";
 .card-item {
   margin: 0 8px;
+  border-radius: 4px;
   .card-cover {
     img.cover__img {
       height: 120px;
@@ -11,14 +12,20 @@
     }
   }
   .card-body {
+    padding: 0 8px;
+    border-bottom: 0.5px solid #cccccc8e;
+    border-left: 0.5px solid #cccccc8e;
+    border-right: 0.5px solid #cccccc8e;
     .title {
       font-size: 14px;
-      min-height: 34px;
+      height: 42px;
+      overflow: hidden;
       font-weight: 700;
       color: $cl-primary;
       line-height: 1.2;
-      margin-top: 0.8rem;
+      padding-top: 8px;
       margin-bottom: 0.4rem;
+      transition: .3s;
     }
     .athor {
       font-size: 0.75rem;

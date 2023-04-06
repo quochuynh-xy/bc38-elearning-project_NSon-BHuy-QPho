@@ -7,6 +7,12 @@
   padding-right: 0;
   margin-bottom: 40px;
   .carousel__content {
+    @media screen and (max-width: 1024px) {
+      height: 40vh;
+      img {
+        height: 100%;
+      }
+    }
     .content {
       left: 90px;
       top: 60px;
@@ -25,6 +31,28 @@
       .content__action {
         @include btnStyle($bg-purple-1, $cl-white-1, $bg-purple-1);
         height: 40px;
+      }
+      @media screen and (max-width: 1024px) {
+        .content__text {
+          padding: 20px;
+          h2 {
+            font-size: 20px;
+          }
+          p {
+            font-size: 14px;
+          }
+        }
+        @media screen and (max-width: 640px) {
+          .content__text {
+            padding: 16px;
+            h2 {
+              font-size: 20px;
+            }
+            p {
+              font-size: 14px;
+            }
+          }
+        }
       }
     }
   }

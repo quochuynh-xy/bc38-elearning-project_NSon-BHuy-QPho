@@ -15,6 +15,7 @@ const TabAllCourses = (props) => {
   const [categoryCode, setCategoryCode] = useState(undefined);
   const [value, setValue] = useState(0);
   const [tabItems, setTabItems] = useState([]);
+  const [numberItemsDisplay, setNumberItemDisplay] = useState(5);
   const CustomTabs = styled(Tabs)({
     "&": {
       alignItems: "center",
@@ -57,14 +58,15 @@ const TabAllCourses = (props) => {
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
   };
+  // Config carousel
   const config = {
     dots: false,
     speed: 300,
     autoplaySpeed: 5000,
     autoplay: true,
     draggable: true,
-    slidesToShow: 5,
-    slidesToScroll: 4,
+    slidesToShow: numberItemsDisplay,
+    slidesToScroll: numberItemsDisplay-1,
     infinite: false,
   };
   useEffect(() => {
@@ -98,6 +100,22 @@ const TabAllCourses = (props) => {
     fetchData();
     return () => (acceptUpdateTabItems = false);
   }, [categoryCode]);
+  useEffect(()=> {
+    function reSize () {
+      let size = window.innerWidth;
+      if(size > 1200) {
+        setNumberItemDisplay(5)
+      } else if(size >= 1024 && size <= 1200) {
+        setNumberItemDisplay(4)
+      } else if( size >= 768 && size < 1024) {
+        setNumberItemDisplay(3)
+      } else {
+        setNumberItemDisplay(2)
+      }
+    }
+    window.addEventListener("resize", reSize)
+    return () => window.removeEventListener("resize", reSize)
+  }, [])
   return (
     <div className="course-tabs container mx-auto">
       <div className="course-tab__intro">
@@ -128,7 +146,7 @@ const TabAllCourses = (props) => {
         </CustomTabs>
         <div className="tab-content__body p-12 mt-2 mb-4 border border-slate-300 border-solid">
           <div className="body__introduce mb-8">
-            <h3 className="font-bold text-2xl">
+            <h3 className="font-bold text-lg md:text-2xl">
               Nâng cao hơn nữa kỹ năng {selectedCategory} của bạn.
             </h3>
             <p className="text-sm pt-2">

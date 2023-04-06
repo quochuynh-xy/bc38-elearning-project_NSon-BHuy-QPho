@@ -44,7 +44,7 @@ const CourseCard = (props) => {
     return () => element.removeEventListener("mouseover", caculatePosition);
   }, [screenSize.width]);
   return (
-    <div ref={ref} className="card-item select-none shadow-sm relative"
+    <div ref={ref} className="card-item select-none shadow-sm relative cursor-pointer"
       onClick={()=> navigate("/chiTiet/"+ content.maKhoaHoc)}
     >
       <div className="card-cover">

@@ -4,6 +4,9 @@
   .course-tab__intro {
     h2 {
       @include title-lg();
+      @media screen and (max-width: 768px) {
+        font-size: 24px;
+      }
     }
   }
   .course-tab__content {

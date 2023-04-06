@@ -1,4 +1,4 @@
-import {  useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import Layout from "../../HOCs/Layout";
@@ -48,25 +48,25 @@ const CourseDetails = () => {
     requestDangKyKhoaHoc(data, token)
       .then((res) => {
         Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Đăng ký thành công',
+          position: "center",
+          icon: "success",
+          title: "Đăng ký thành công",
           showConfirmButton: false,
-          timer: 2000
-        })
-        return autoLogin(token)
+          timer: 2000,
+        });
+        return autoLogin(token);
       })
-      .then(res => {
-        dispatch(actionGetUserInfo(res.data))
+      .then((res) => {
+        dispatch(actionGetUserInfo(res.data));
       })
       .catch((err) => {
         Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Có lỗi xảy ra, tải lại trang và thử lại.',
+          position: "center",
+          icon: "error",
+          title: "Có lỗi xảy ra, tải lại trang và thử lại.",
           showConfirmButton: false,
-          timer: 2000
-        })
+          timer: 2000,
+        });
         console.log(err);
       });
   };
@@ -79,37 +79,41 @@ const CourseDetails = () => {
     requestHuyGhiDanh(data, token)
       .then((res) => {
         Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Hủy đăng ký thành công',
+          position: "center",
+          icon: "success",
+          title: "Hủy đăng ký thành công",
           showConfirmButton: false,
-          timer: 2000
-        })
-        return autoLogin(token)
+          timer: 2000,
+        });
+        return autoLogin(token);
       })
-      .then(res => {
-        dispatch(actionGetUserInfo(res.data))
+      .then((res) => {
+        dispatch(actionGetUserInfo(res.data));
       })
       .catch((err) => {
         Swal.fire({
-          position: 'center',
-          icon: 'error',
-          title: 'Có lỗi xảy ra, tải lại trang và thử lại.',
+          position: "center",
+          icon: "error",
+          title: "Có lỗi xảy ra, tải lại trang và thử lại.",
           showConfirmButton: false,
-          timer: 2000
-        })
+          timer: 2000,
+        });
         console.log(err);
       });
   };
   return (
     <Layout>
       <Header />
-      <SidebarNav/>
+      <SidebarNav />
       <DetailSideBar
         handleRegister={handleRegister}
         handleCancelRegistration={handleCancelRegistration}
       />
-      <Introdution data={thongTinKhoaHoc} />
+      <Introdution
+        data={thongTinKhoaHoc}
+        handleRegister={handleRegister}
+        handleCancelRegistration={handleCancelRegistration}
+      />
       <section className="course-result container mx-auto">
         <div className="course-result__content lg:w-3/5 mt-8 mb-8 p-6 border-solid border border-stone-200">
           <h3 className="font-semibold text-stone-800 text-2xl">

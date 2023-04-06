@@ -6,7 +6,7 @@ const Topics = () => {
         <div className="section-title">
           <h3>Danh sách các danh mục</h3>
         </div>
-        <div className="topic__lists grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="topic__lists grid grid-cols-2 lg:grid-cols-4 gap-4">
           <div className="lists__col">
             <h2 className="col__title font-semibold text-base lg:text-xl pb-2 lg:pb-4">
               Lập trình căn bản

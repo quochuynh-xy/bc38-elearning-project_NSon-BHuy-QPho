@@ -85,12 +85,6 @@ const DetailSideBar = (props) => {
                   </p>
                 </div>
                 <div className="body__actions py-4">
-                  {/* <button
-                    className="h-12 w-full tracking-wider hover:bg-purple-800"
-                    onClick={() => handleRegister()}
-                  >
-                    Đăng Ký
-                  </button> */}
                   <ControlRegisterBtn />
                 </div>
                 <div className="body__detail">

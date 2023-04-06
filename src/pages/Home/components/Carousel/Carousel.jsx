@@ -14,7 +14,7 @@ const Carousel = () => {
             <h2 className="text__title mb-2">{title}</h2>
             <p className="text__text">{content}</p>
           </div>
-          <button className="content__action mt-10">Đăng ký ngay</button>
+          <button className="content__action mt-4 lg:mt-10">Đăng ký ngay</button>
         </div>
         <img
           className="w-full object-cover"

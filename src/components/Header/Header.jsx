@@ -85,7 +85,7 @@ const Header = () => {
               <input
                 value={searchKey}
                 onChange={(e) => setSeachKey(e.target.value)}
-                className="h-full w-full outline-none pl-6 border border-solid border-stone-200 rounded-full"
+                className="h-full w-full outline-none pl-6 text-sm md:text-base border border-solid border-stone-200 rounded-full"
                 type="text"
                 placeholder="Bạn muốn học gì hôm nay?"
               />

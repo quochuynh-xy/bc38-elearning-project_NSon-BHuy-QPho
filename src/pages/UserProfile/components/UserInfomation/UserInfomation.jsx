@@ -47,7 +47,7 @@ const UserInfomation = () => {
   const handleCancel = () => {
     formik.setValues({
       taiKhoan: userBasicInfo.taiKhoan,
-      matKhau: userBasicInfo.matKhau,
+      matKhau: "",
       hoTen: userBasicInfo.hoTen,
       email: userBasicInfo.email,
       soDT: userBasicInfo.soDT,
@@ -60,7 +60,7 @@ const UserInfomation = () => {
   const handleStartEditForm = () => {
     formik.setValues({
       taiKhoan: userBasicInfo.taiKhoan,
-      matKhau: userBasicInfo.matKhau,
+      matKhau: "",
       hoTen: userBasicInfo.hoTen,
       email: userBasicInfo.email,
       soDT: userBasicInfo.soDT,
@@ -228,6 +228,7 @@ const UserInfomation = () => {
           <input
             className="border border-solid border-stone-300 flex-1 px-2 py-1 outline-none"
             required
+            type="password"
             name="matKhau"
             onChange={formik.handleChange}
             value={formik.values.matKhau}
