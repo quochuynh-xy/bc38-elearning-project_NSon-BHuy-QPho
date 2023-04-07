@@ -163,7 +163,7 @@ const SearchingCourses = () => {
       </section>
       <section className="search-result container mx-auto grid grid-cols-5">
       <FilterBar />
-        <div className="search-result__item col-span-5 lg:col-span-4 pl-4 ml-auto">
+        <div className="search-result__item col-span-5 lg:col-span-4 pl-4 mx-auto">
           {searchStatus === "PENDING" ? (
             <p className="text-center text-2xl text-stone-700 animate__animated animate__bounceIn infinite">
               Đang tải dữ liệu, vui lòng chờ
