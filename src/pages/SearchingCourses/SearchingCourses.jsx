@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Layout from "../../HOCs/Layout";
 import { BsFilter } from "react-icons/bs";
 import FilterBar from "../../components/FilterBar/FilterBar";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchDanhSachKhoaHoc } from "./searchReducer";
 import "./style.scss"
@@ -15,12 +15,15 @@ import _ from "lodash";
 import Header from "../../components/Header/Header";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import Footer from "../../components/Footer/Footer";
+import Swal from "sweetalert2";
+import { autoLogin } from "../Authentication/services";
+import { actionGetUserInfo } from "../Authentication/authReducer";
+import { actionDangKyKhoaHoc, actionHuyDangKyKhoaHoc } from "./services";
 const SearchingCourses = () => {
-  // Gán chức năng tìm kiếm cho ô tìm kiếm 
-  // Lấy từ khóa
-  // Xử lý gán chức năng đăng ký - hủy đăng ký trên các item.
+  const userBasicInfo = useSelector(store => store.authReducer.userInfo.userBasicInfo);
   const { tuKhoa } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const searchResult = useSelector(
     (state) => state.searchReducer.ketQuaTimKiem
   );
@@ -29,6 +32,80 @@ const SearchingCourses = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 4;
   const [searchParams, setSearchParams] = useSearchParams();
+  const handleSubscribe = useCallback(async (maKhoaHoc) => {
+    const token = localStorage.getItem("elearningToken");
+    // Chưa đăng nhập
+    if(!userBasicInfo?.taiKhoan) {
+      Swal.fire({
+        title: 'Bạn chưa đăng nhập.',
+        text: "Vui lòng đăng nhập để hoàn thành thao tác!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#6b21a8',
+        cancelButtonColor: '#777',
+        confirmButtonText: 'Đăng nhập',
+        cancelButtonText: "Hủy bỏ"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/thamGia")
+        }
+      })
+      return
+    }
+    const data = {
+      maKhoaHoc: maKhoaHoc,
+      taiKhoan: userBasicInfo.taiKhoan
+    }
+    try {
+      let res = await actionDangKyKhoaHoc(data, token);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: res.data,
+        showConfirmButton: false,
+        timer: 2000
+      })
+      let newUserData = await autoLogin(token);
+      dispatch(actionGetUserInfo(newUserData.data));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: error.response.data,
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
+  }, [navigate, userBasicInfo.taiKhoan, dispatch])
+  const handleUnSubscribe = useCallback(async (maKhoaHoc) => {
+    const token = localStorage.getItem("elearningToken");
+    const data = {
+      maKhoaHoc: maKhoaHoc,
+      taiKhoan: userBasicInfo.taiKhoan
+    }
+    try {
+      let res = await actionHuyDangKyKhoaHoc(data, token);
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: res.data,
+        showConfirmButton: false,
+        timer: 2000
+      })
+      let newUserData = await autoLogin(token);
+      dispatch(actionGetUserInfo(newUserData.data));
+    } catch (error) {
+      console.log(error);
+      Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: "Có lỗi xảy ra, vui lòng thử lại",
+        showConfirmButton: false,
+        timer: 2000
+      })
+    }
+  }, [userBasicInfo.taiKhoan, dispatch])
   useEffect(() => {
     document.title = "Edemy - Tìm kiếm";
   }, []);
@@ -49,13 +126,14 @@ const SearchingCourses = () => {
       setCurrentPage(page);
     }
   }, [searchParams]);
+
   const ShowResult = useCallback(
     () => {
      if (searchResult.length === 0) {
        return <SearchFailled />;
      } else if (searchResult.length && splitedData.length) {
        return splitedData[currentPage - 1].map((item, index) => (
-         <ItemWide data={item} key={index} />
+         <ItemWide data={item} key={index} handleSubscribe={handleSubscribe} handleUnSubscribe={handleUnSubscribe}/>
        ));
      }
    },[searchResult.length, currentPage, splitedData])

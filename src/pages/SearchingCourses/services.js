@@ -5,3 +5,15 @@ export const fetchKetQuaTimKiem = (tuKhoa) =>
         tenKhoaHoc: tuKhoa
     },
   });
+  export const actionDangKyKhoaHoc = (data, token) =>
+  https.post("api/QuanLyKhoaHoc/DangKyKhoaHoc", data, {
+    headers: {
+      Authorization : "Bearer " + token
+    },
+  });
+  export const actionHuyDangKyKhoaHoc = (data, token) =>
+  https.post("api/QuanLyKhoaHoc/HuyGhiDanh", data, {
+    headers: {
+      Authorization : "Bearer " + token
+    },
+  });

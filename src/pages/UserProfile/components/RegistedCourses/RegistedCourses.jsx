@@ -77,7 +77,7 @@ const RegistedCourses = () => {
         </h3>
       );
     } else {
-      return splittedData[displayPage - 1].map((item, index) => {
+      return splittedData[displayPage - 1] && splittedData[displayPage - 1].map((item, index) => {
         return (
           <CourseItemSmall
             key={index}
