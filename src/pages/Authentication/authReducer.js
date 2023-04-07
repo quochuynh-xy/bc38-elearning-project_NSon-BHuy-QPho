@@ -44,6 +44,7 @@ const authenReducer = createSlice({
       state.loadingStatus = "ERROR";
       state.pageMessage = action.payload;
       state.userInfo.userBasicInfo = {};
+      state.isUserLogin = false;
     },
     actionGetUserInfo: (state, action) => {
       const {

@@ -15,6 +15,8 @@ import { autoLogin } from "../Authentication/services";
 import { actionGetUserInfo } from "../Authentication/authReducer";
 import Swal from "sweetalert2";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
+import Footer from "../../components/Footer/Footer";
+import "./style.scss"
 const CourseGroup = () => {
   // Danh sách khóa học lấy về
   const courseList = useSelector(
@@ -175,9 +177,10 @@ const CourseGroup = () => {
           </h3>
         </div>
       </section>
-      <FilterBar className="" />
-      <section className="container mx-auto">
-        <div className="ml-auto lg:w-4/5 pl-3">
+      <div className="container mx-auto grid grid-cols-5">
+      <FilterBar/>
+      <section className="course-group col-span-5 lg:col-span-4">
+        <div className="ml-auto pl-3">
           <ControlDisplay />
           <Pagination
             className="py-6"
@@ -188,6 +191,8 @@ const CourseGroup = () => {
           />
         </div>
       </section>
+      </div>
+      <Footer/>
     </Layout>
   );
 };

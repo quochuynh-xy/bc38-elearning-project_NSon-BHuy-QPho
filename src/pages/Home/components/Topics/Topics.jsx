@@ -1,7 +1,7 @@
 import "./style.scss";
 const Topics = () => {
   return (
-    <section className="topics">
+    <section className="topics mb-10">
       <div className="container mx-auto">
         <div className="section-title">
           <h3>Danh sách các danh mục</h3>

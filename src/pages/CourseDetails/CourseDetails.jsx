@@ -13,6 +13,7 @@ import { actionGetUserInfo } from "../Authentication/authReducer";
 import { autoLogin } from "../Authentication/services";
 import Swal from "sweetalert2";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
+import Footer from "../../components/Footer/Footer";
 const { Panel } = Collapse;
 const CourseDetails = () => {
   const params = useParams();
@@ -189,7 +190,7 @@ const CourseDetails = () => {
           </div>
         </div>
       </section>
-      <section className="course-lessons container mx-auto ">
+      <section className="course-lessons container mx-auto pb-10">
         <div className="lg:w-3/5">
           <div className="lessons__total-view pb-4">
             <p className="text-base italic text-stone-800">
@@ -367,7 +368,8 @@ const CourseDetails = () => {
           </Collapse>
         </div>
       </section>
-      <section className="more-course"></section>
+      <section className="more-course pb-14"></section>
+      <Footer/>
     </Layout>
   );
 };

@@ -16,6 +16,7 @@ import { useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
+import Footer from "../../components/Footer/Footer";
 const AllCourses = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
@@ -135,7 +136,7 @@ const AllCourses = () => {
           </h3>
         </div>
       </section>
-      <section className="container mx-auto">
+      <section className="container mx-auto pb-10">
         {courseArr.map((item, index) => (
           <ItemWide key={index} data={item} handleSubscribe={handleSubscribe} handleUnSubscribe={handleUnSubscribe}/>
         ))}
@@ -152,6 +153,7 @@ const AllCourses = () => {
           onChange={handleChangePage}
         />
       </section>
+      <Footer/>
     </Layout>
   );
 };

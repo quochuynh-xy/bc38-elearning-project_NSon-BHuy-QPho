@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from "react";
 import Layout from "../../HOCs/Layout";
 import { BsFilter } from "react-icons/bs";
-import FilterBar from "./components/FilterBar/FilterBar";
+import FilterBar from "../../components/FilterBar/FilterBar";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionFetchDanhSachKhoaHoc } from "./searchReducer";
+import "./style.scss"
 import "animate.css";
 import SearchFailled from "./components/SearchFailled/SearchFailled";
 import ItemWide from "../../components/CourseItemWide/ItemWide";
@@ -13,6 +14,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import _ from "lodash";
 import Header from "../../components/Header/Header";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
+import Footer from "../../components/Footer/Footer";
 const SearchingCourses = () => {
   // Gán chức năng tìm kiếm cho ô tìm kiếm 
   // Lấy từ khóa
@@ -81,9 +83,9 @@ const SearchingCourses = () => {
           </h3>
         </div>
       </section>
+      <section className="search-result container mx-auto grid grid-cols-5">
       <FilterBar />
-      <section className="search-result container mx-auto">
-        <div className="search-result__item lg:w-4/5 ml-auto">
+        <div className="search-result__item col-span-5 lg:col-span-4 pl-4 ml-auto">
           {searchStatus === "PENDING" ? (
             <p className="text-center text-2xl text-stone-700 animate__animated animate__bounceIn infinite">
               Đang tải dữ liệu, vui lòng chờ
@@ -100,6 +102,7 @@ const SearchingCourses = () => {
           />
         </div>
       </section>
+      <Footer/>
     </Layout>
   );
 };

@@ -4,18 +4,27 @@ import Header from "../../components/Header/Header";
 import { Avatar } from "antd";
 // import RegistedCourses from "./components/RegistedCourses/RegistedCourses";
 // import UserInfomation from "./components/UserInfomation/UserInfomation";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { updateUserData } from "./services";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { actionGetUserInfo } from "../Authentication/authReducer";
 import SidebarNav from "../../components/SidebarNav/SidebarNav";
+import { useUserLoginCheck } from "../../Hooks/UserLoginCheck";
+import Footer from "../../components/Footer/Footer";
 const UserProfile = () => {
+  const {tokenStatus} = useUserLoginCheck();
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const userBasicInfo = useSelector(
     (store) => store.authReducer.userInfo.userBasicInfo
   );
+  useEffect(()=> {
+    if(!tokenStatus) {
+      navigate("/")
+    }
+  }, [navigate, tokenStatus])
   useEffect(()=> {
     const update = async () => {
       try {
@@ -31,7 +40,7 @@ const UserProfile = () => {
     <Layout>
       <Header />
       <SidebarNav/>
-      <section className="mylearning bg-stone-900 mt-8">
+      <section className="mylearning bg-stone-900 mt-8 mb-12 lg:mb-20">
         <div className="learning-header container mx-auto py-5 text-stone-100 ">
           <h3 className="header__title lg:text-3xl font-bold font-serif">
             Thông tin tài khoản
@@ -75,6 +84,7 @@ const UserProfile = () => {
           </div>
         </div>
       </section>
+      <Footer/>
     </Layout>
   );
 };
