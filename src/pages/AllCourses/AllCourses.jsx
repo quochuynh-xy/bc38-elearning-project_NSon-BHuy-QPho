@@ -128,7 +128,7 @@ const AllCourses = () => {
           <div className="search-info-action__actions">
             <button className="flex items-center justify-center text-2xl border-2 border-solid border-stone-900 h-14 w-32 hover:bg-stone-200 duration-200">
               <BsFilter />
-              <span className="pl-3 text-base font-bold">Bộ lọc (2)</span>
+              <span className="pl-3 text-base font-bold">Bộ lọc (0)</span>
             </button>
           </div>
           <h3 className="search-info-action__result text-xl text-stone-600 font-bold">

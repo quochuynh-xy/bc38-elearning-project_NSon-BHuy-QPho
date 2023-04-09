@@ -19,12 +19,10 @@ const authenReducer = createSlice({
       state.loadingStatus = "SUCCESS";
       state.pageMessage = "Đăng ký thành công";
       state.registerData = action.payload;
-      console.log(action);
     },
     actionDangKyThatBai: (state, action) => {
       state.loadingStatus = "ERROR";
       state.pageMessage = action.payload;
-      console.log(action);
     },
     actionWaitingLoadData: (state, action) => {
       state.loadingStatus = "PENDING";

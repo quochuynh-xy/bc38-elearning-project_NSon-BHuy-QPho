@@ -8,48 +8,35 @@ import Authentication from "../pages/Authentication/Authentication";
 import UserProfile from "../pages/UserProfile/UserProfile";
 import RegistedCourses from "../pages/UserProfile/components/RegistedCourses/RegistedCourses";
 import UserInfomation from "../pages/UserProfile/components/UserInfomation/UserInfomation";
+import Notfound404 from "../components/PageNotFound/Notfound404";
 export const routes = [
   {
     path: "/",
     Component: Home,
-    isPublic: true,
-    isAuth: false,
   },
   {
     path: "/chiTiet/:maKhoaHoc",
     Component: CourseDetails,
-    isPublic: false,
-    isAuth: false,
   },
   {
     path: "/timKiem/:tuKhoa",
     Component: SearchingCourses,
-    isPublic: false,
-    isAuth: false,
   },
   {
     path: "/danhMuc/:tenDanhMuc",
     Component: CourseGroup,
-    isPublic: false,
-    isAuth: false,
   },
   {
     path: "/tatCaKhoaHoc/",
     Component: AllCourses,
-    isPublic: false,
-    isAuth: false,
   },
   {
     path: "/thamGia",
     Component: Authentication,
-    isPublic: false,
-    isAuth: false,
   },
   {
     path: "/caNhan",
     Component: UserProfile,
-    isPublic: false,
-    isAuth: false,
     childs: [
       {
         path: "/caNhan",
@@ -59,12 +46,10 @@ export const routes = [
         path: "khoaHocDangKy",
         Component: RegistedCourses,
       },
-    ],
+    ]
   },
-  //   {
-  //     path: "*",
-  //     Component: PageNotFound,
-  //     isPublic: false,
-  //     isAuth: false,
-  //   },
+    {
+      path: "*",
+      Component: Notfound404,
+    },
 ];

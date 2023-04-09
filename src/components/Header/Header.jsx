@@ -50,7 +50,7 @@ const Header = () => {
                   <Link to="/caNhan">Trang cá nhân</Link>
                 </li>
                 {typeOfUser === "GV" ? (
-                  <li className="cursor-pointer">Quản lý</li>
+                  <li className="cursor-pointer"><Link to="/admin">Quản lý</Link></li>
                 ) : null}
                 <li
                   onClick={handleLogOut}

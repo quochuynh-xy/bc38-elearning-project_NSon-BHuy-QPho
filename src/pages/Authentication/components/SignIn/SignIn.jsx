@@ -27,8 +27,8 @@ const SignIn = (props) => {
   };
   const formik = useFormik({
     initialValues: {
-      taiKhoan: "",
-      matKhau: "",
+      taiKhoan: "cabongmu",
+      matKhau: "Aa@12345b",
     },
     validationSchema: Yup.object().shape({
       taiKhoan: Yup.string("*")

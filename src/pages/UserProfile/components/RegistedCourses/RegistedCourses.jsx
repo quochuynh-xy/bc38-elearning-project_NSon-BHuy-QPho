@@ -27,7 +27,7 @@ const RegistedCourses = () => {
       taiKhoan: userInfo.taiKhoan,
     };
     try {
-      let res = await requestHuyGhiDanh(data, token);
+      await requestHuyGhiDanh(data, token);
       Swal.fire({
         position: "center",
         icon: "success",
@@ -35,7 +35,6 @@ const RegistedCourses = () => {
         showConfirmButton: false,
         timer: 2000,
       });
-      console.log(res.data);
       let newUserData = await autoLogin(token);
       dispatch(actionGetUserInfo(newUserData.data));
     } catch (error) {

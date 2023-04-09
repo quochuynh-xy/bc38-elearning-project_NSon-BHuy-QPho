@@ -6,6 +6,7 @@ import { styled } from "@mui/material/styles";
 import CourseCard from "../CourseCard/CourseCard";
 import { fetchKhoaHocTheoDanhMuc } from "../../services";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
+import { CircularProgress } from "@mui/material";
 // import CardOverview from "../CourseCard/CardOverview";
 import "./style.scss";
 const TabAllCourses = (props) => {
@@ -66,7 +67,7 @@ const TabAllCourses = (props) => {
     autoplay: true,
     draggable: true,
     slidesToShow: numberItemsDisplay,
-    slidesToScroll: numberItemsDisplay-1,
+    slidesToScroll: numberItemsDisplay - 1,
     infinite: false,
   };
   useEffect(() => {
@@ -100,22 +101,22 @@ const TabAllCourses = (props) => {
     fetchData();
     return () => (acceptUpdateTabItems = false);
   }, [categoryCode]);
-  useEffect(()=> {
-    function reSize () {
+  useEffect(() => {
+    function reSize() {
       let size = window.innerWidth;
-      if(size > 1200) {
-        setNumberItemDisplay(5)
-      } else if(size >= 1024 && size <= 1200) {
-        setNumberItemDisplay(4)
-      } else if( size >= 768 && size < 1024) {
-        setNumberItemDisplay(3)
+      if (size > 1200) {
+        setNumberItemDisplay(5);
+      } else if (size >= 1024 && size <= 1200) {
+        setNumberItemDisplay(4);
+      } else if (size >= 768 && size < 1024) {
+        setNumberItemDisplay(3);
       } else {
-        setNumberItemDisplay(2)
+        setNumberItemDisplay(2);
       }
     }
-    window.addEventListener("resize", reSize)
-    return () => window.removeEventListener("resize", reSize)
-  }, [])
+    window.addEventListener("resize", reSize);
+    return () => window.removeEventListener("resize", reSize);
+  }, []);
   return (
     <div className="course-tabs container mx-auto">
       <div className="course-tab__intro">
@@ -156,11 +157,17 @@ const TabAllCourses = (props) => {
             <button className="introduce__btn mt-4">Khám phá ngay</button>
           </div>
           <div className="body__item-list relative">
-            <Carousel {...config} ref={reference}>
-              {tabItems.map((item, index) => (
-                <CourseCard key={index} content={item} />
-              ))}
-            </Carousel>
+            {tabItems.length > 0 ? (
+              <Carousel {...config} ref={reference}>
+                {tabItems.map((item, index) => (
+                  <CourseCard key={index} content={item} />
+                ))}
+              </Carousel>
+            ) : (
+              <div className="text-center h-40 flex justify-around items-center">
+                <CircularProgress /> <CircularProgress /> <CircularProgress />
+              </div>
+            )}
             {/* <CardOverview/> */}
             <div className="prev-btn absolute">
               <button onClick={() => reference.current.prev()}>

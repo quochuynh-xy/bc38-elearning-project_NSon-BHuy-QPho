@@ -15,7 +15,6 @@ const SidebarNav = () => {
     );
     menuItems.forEach((item) => {
       item.addEventListener("click", () => {
-        console.log("click vafo item");
         setMenuGroup1Expand(!menuGroup1Expand);
       });
     });

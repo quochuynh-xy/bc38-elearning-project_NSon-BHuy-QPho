@@ -14,11 +14,10 @@ const UserInfomation = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [errMess, setErrMess] = useState("");
   const handleSubmit = async () => {
-    console.log(formik.values);
+    console.log(formik.errors);
     if (_.isEmpty(formik.errors)) {
       try {
-       let res = await requestChangeInfo(formik.values);
-       console.log(res);
+       await requestChangeInfo(formik.values);
         setIsModalOpen(false);
         await Swal.fire({
           position: "center",
@@ -29,8 +28,6 @@ const UserInfomation = () => {
         });
         window.location.reload();
       } catch (error) {
-        console.log(error);
-        console.log(formik.values);
         Swal.fire({
           position: "center",
           title: error.response.data,
@@ -40,7 +37,6 @@ const UserInfomation = () => {
         });
       }
     } else {
-      console.log(formik.errors);
       setErrMess(Object.values(formik.errors)[0]);
     }
   };
@@ -60,7 +56,7 @@ const UserInfomation = () => {
   const handleStartEditForm = () => {
     formik.setValues({
       taiKhoan: userBasicInfo.taiKhoan,
-      matKhau: "",
+      matKhau: userBasicInfo.matKhau,
       hoTen: userBasicInfo.hoTen,
       email: userBasicInfo.email,
       soDT: userBasicInfo.soDT,
@@ -83,29 +79,28 @@ const UserInfomation = () => {
       hoTen: Yup.string()
         .matches(
           /^[A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*(?:[ ][A-ZÀÁẠẢÃÂẦẤẬẨẪĂẰẮẶẲẴÈÉẸẺẼÊỀẾỆỂỄÌÍỊỈĨÒÓỌỎÕÔỒỐỘỔỖƠỜỚỢỞỠÙÚỤỦŨƯỪỨỰỬỮỲÝỴỶỸĐ][a-zàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]*)*$/,
-          "Họ tên không hợp lệ"
+          "Họ tên không hợp lệ."
         )
-        .min(4, "Ít nhất 4 ký tự.")
-        .max(30, "Không vượt quá 30 ký tự.")
+        .min(4, "Họ tên không hợp lệ.")
+        .max(30, "Họ tên vượt quá 30 ký tự.")
         .required("Hoàn tất biểu mẫu."),
       matKhau: Yup.string()
         .matches(
           /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-          "Chữ thường, chữ hoa, số & ký tự đặc biệt."
+          "Mậ khẩu gồm chữ thường, chữ hoa, số & ký tự đặc biệt."
         )
-        .min(8, "Tối thiểu 8 ký tự.")
-        .max(20, "Tối đa 20 ký tự.")
+        .min(8, "Mật khẩu có tối thiểu 8 ký tự.")
+        .max(20, "Mật khẩu có tối đa 20 ký tự.")
         .required("Hoàn tất biểu mẫu."),
       email: Yup.string()
         .email("Email không hợp lệ.")
         .required("Hoàn tất biểu mẫu."),
       soDT: Yup.string()
-        .min(10, "Gồm 10 chữ số")
-        .max(10, "Không hợp lệ")
-        .matches(/^[0-9]{10}$/, "Không hợp lệ.")
+        .min(10, "SĐT gồm 10 chữ số.")
+        .max(10, "SĐT không hợp lệ.")
+        .matches(/^[0-9]{10}$/, "SĐT không hợp lệ.")
         .required("Hoàn tất biểu mẫu."),
     }),
-    onSubmit: (values) => console.log(values),
   });
   return (
     <div className="border border-solid border-stone-600 my-20 lg:my-0 lg:py-32">
@@ -223,7 +218,7 @@ const UserInfomation = () => {
         </div>
         <div className="item flex flex-col lg:flex-row lg:items-center mb-3">
           <label className="label font-bold mr-1 basis-4/12">
-            Mật khẩu mới:
+            Mật khẩu:
           </label>
           <input
             className="border border-solid border-stone-300 flex-1 px-2 py-1 outline-none"
@@ -235,7 +230,7 @@ const UserInfomation = () => {
           />
         </div>
         <div className="item flex flex-col lg:flex-row lg:items-center mb-3">
-          <label className="label font-bold mr-1 basis-4/12 text-red-600">
+          <label className="label font-bold mr-1 text-red-600">
             {errMess}
           </label>
         </div>
