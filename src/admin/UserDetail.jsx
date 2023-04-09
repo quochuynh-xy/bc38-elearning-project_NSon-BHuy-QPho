@@ -3,6 +3,7 @@ import { Button, Input, Space, Table } from "antd";
 import { useRef, useState } from "react";
 import Highlighter from 'react-highlight-words';
 import { AiOutlineEdit, AiOutlineUsergroupDelete } from "react-icons/ai";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 const data = [
@@ -36,6 +37,8 @@ const data = [
   },
 ];
 const UserDetail = () => {
+  const userDetail = useSelector(state => state.admin.userDetail)
+  console.log(userDetail)
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);

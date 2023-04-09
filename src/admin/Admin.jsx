@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineSnippets, AiOutlineFileAdd } from "react-icons/ai";
+import { getUserDetail } from "./redux/adminSlice";
+import { useDispatch } from "react-redux";
 const Admin = () => {
+  const dispatch = useDispatch()
+  useEffect(()=> {
+    dispatch(getUserDetail())
+  }, [dispatch])
   return (
     <div className="container">
       <div>
@@ -51,7 +57,7 @@ const Admin = () => {
                       <img
                         className="w-8 h-8 rounded-full "
                         src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                        alt="admin photo"
+                        alt=""
                       />
                     </button>
                   </div>
@@ -68,12 +74,12 @@ const Admin = () => {
           <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
             <ul className="space-y-2 font-medium">
               <li>
-                <a
-                  href="#"
+                <NavLink
+                  to=''
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <span className="ml-3 font-bold text-xl">Admin Site</span>
-                </a>
+                </NavLink>
               </li>
               <li>
                 <NavLink
