@@ -41,7 +41,7 @@ const Admin = () => {
               </div>
               <div className="flex items-center">
                 <div className="flex items-center ml-3">
-                  <div>
+                  <div className="translate-x-[-100px]">
                     <button
                       type="button"
                       className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -49,7 +49,7 @@ const Admin = () => {
                       data-dropdown-toggle="dropdown-user"
                     >
                       <img
-                        className="w-8 h-8 rounded-full"
+                        className="w-8 h-8 rounded-full "
                         src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
                         alt="admin photo"
                       />

@@ -1,7 +1,7 @@
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Space, Table } from "antd";
 import { useRef, useState } from "react";
-import Highlighter from "react-highlight-words";
+import Highlighter from 'react-highlight-words';
 import { AiOutlineEdit, AiOutlineUsergroupDelete } from "react-icons/ai";
 import { NavLink } from "react-router-dom";
 
