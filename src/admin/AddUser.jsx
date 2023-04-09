@@ -1,22 +1,22 @@
 import {
-    Button,
-    Cascader,
-    DatePicker,
-    Form,
-    Input,
-    InputNumber,
-    Radio,
-    Select,
-    Switch,
-    TreeSelect,
-  } from 'antd';
-  import { useState } from 'react';
-  const AddUser = () => {
-    const [componentSize, setComponentSize] = useState('default');
-    const onFormLayoutChange = ({ size }) => {
-      setComponentSize(size);
-    };
-    return (
+  Button,
+  Form,
+  Input,
+  Radio,
+  Select,
+} from "antd";
+import { useState } from "react";
+import {object} from 'yup'
+const AddUser = () => {
+  const userSchema = object({
+    
+  })
+  const [componentSize, setComponentSize] = useState("default");
+  const onFormLayoutChange = ({ size }) => {
+    setComponentSize(size);
+  };
+  return (
+    <div className="p-2">
       <Form
         labelCol={{
           span: 4,
@@ -41,59 +41,35 @@ import {
             <Radio.Button value="large">Large</Radio.Button>
           </Radio.Group>
         </Form.Item>
-        <Form.Item label="Input">
+        <Form.Item label="Họ tên">
           <Input />
         </Form.Item>
-        <Form.Item label="Select">
+        <Form.Item label="Tài khoản">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Mật khẩu">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Số ĐT">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Email">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Mã nhóm">
+          <Input />
+        </Form.Item>
+        <Form.Item label="Loại user">
           <Select>
-            <Select.Option value="demo">Demo</Select.Option>
+            <Select.Option value="GV">GV</Select.Option>
+            <Select.Option value="HV">HV</Select.Option>
           </Select>
-        </Form.Item>
-        <Form.Item label="TreeSelect">
-          <TreeSelect
-            treeData={[
-              {
-                title: 'Light',
-                value: 'light',
-                children: [
-                  {
-                    title: 'Bamboo',
-                    value: 'bamboo',
-                  },
-                ],
-              },
-            ]}
-          />
-        </Form.Item>
-        <Form.Item label="Cascader">
-          <Cascader
-            options={[
-              {
-                value: 'zhejiang',
-                label: 'Zhejiang',
-                children: [
-                  {
-                    value: 'hangzhou',
-                    label: 'Hangzhou',
-                  },
-                ],
-              },
-            ]}
-          />
-        </Form.Item>
-        <Form.Item label="DatePicker">
-          <DatePicker />
-        </Form.Item>
-        <Form.Item label="InputNumber">
-          <InputNumber />
-        </Form.Item>
-        <Form.Item label="Switch" valuePropName="checked">
-          <Switch />
         </Form.Item>
         <Form.Item label="Button">
           <Button>Button</Button>
         </Form.Item>
       </Form>
-    );
-  };
-  export default AddUser;
+    </div>
+  );
+};
+export default AddUser;

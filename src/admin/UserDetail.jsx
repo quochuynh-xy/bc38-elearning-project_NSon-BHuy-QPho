@@ -1,41 +1,11 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table } from "antd";
+import { Button, Input, Space, Spin, Table } from "antd";
 import { useRef, useState } from "react";
 import Highlighter from 'react-highlight-words';
 import { AiOutlineEdit, AiOutlineUsergroupDelete } from "react-icons/ai";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-
-const data = [
-  {
-    hoTen: "1",
-    taiKhoan: "John Brown",
-    soDT: "desc",
-    email: '32',
-    maLoaiNguoiDung: "New York No. 1 Lake Park",
-  },
-  {
-    hoTen: "2",
-    taiKhoan: "Joe Black",
-    soDT: "desc",
-    email: '42',
-    maLoaiNguoiDung: "London No. 1 Lake Park",
-  },
-  {
-    hoTen: "3",
-    taiKhoan: "Jim Green",
-    soDT: "desc",
-    email: '32',
-    maLoaiNguoiDung: "Sydney No. 1 Lake Park",
-  },
-  {
-    hoTen: "4",
-    taiKhoan: "Jim Red",
-    soDT: "desc",
-    email: '32',
-    maLoaiNguoiDung: "London No. 2 Lake Park",
-  },
-];
+import './utils/antTable.style.css'
 const UserDetail = () => {
   const userDetail = useSelector(state => state.admin.userDetail)
   console.log(userDetail)
@@ -174,7 +144,7 @@ const UserDetail = () => {
     },
     {
       title: "Số ĐT",
-      dataIndex: "soDT",
+      dataIndex: "soDt",
       key: "soDT",
       width: "20%",
       ...getColumnSearchProps("age"),
@@ -209,8 +179,9 @@ const UserDetail = () => {
     },
   ];
   return (
-    <div>
-        <Table columns={columns} dataSource={data} />
+    <div className="h-[620px] overflow-auto">
+      {userDetail?.length ?<Table columns={columns} dataSource={userDetail} /> : <div className="text-center"><Spin /></div>  }
+        
     </div>
   );
 };

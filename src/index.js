@@ -5,7 +5,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 // set up redux-tool kit
 import { Provider } from "react-redux";
-import {store} from "./admin/redux/configStore"
+import {store} from "./app/store"
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>

@@ -1,41 +1,14 @@
 import { SearchOutlined } from "@ant-design/icons";
-import { Button, Input, Space, Table } from "antd";
+import { Button, Input, Space, Spin, Table } from "antd";
 import { useRef, useState } from "react";
 import Highlighter from "react-highlight-words";
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-
-const data = [
-  {
-    maKhoaHoc: "1",
-    tenKhoaHoc: "John Brown",
-    moTa: "desc",
-    age: 32,
-    address: "New York No. 1 Lake Park",
-  },
-  {
-    maKhoaHoc: "2",
-    tenKhoaHoc: "Joe Black",
-    moTa: "desc",
-    age: 42,
-    address: "London No. 1 Lake Park",
-  },
-  {
-    maKhoaHoc: "3",
-    tenKhoaHoc: "Jim Green",
-    moTa: "desc",
-    age: 32,
-    address: "Sydney No. 1 Lake Park",
-  },
-  {
-    maKhoaHoc: "4",
-    tenKhoaHoc: "Jim Red",
-    moTa: "desc",
-    age: 32,
-    address: "London No. 2 Lake Park",
-  },
-];
+import './utils/antTable.style.css'
 const CourseDetail = () => {
+  const courseDetail = useSelector(state =>  state.admin.courseDetail)
+  console.log(courseDetail)
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
@@ -165,7 +138,7 @@ const CourseDetail = () => {
       dataIndex: "tenKhoaHoc",
       key: "name",
       width: "20%",
-      ...getColumnSearchProps("name"),
+      ...getColumnSearchProps("tenKhoaHoc"),
       sorter: (a, b) => a.tenKhoaHoc - b.tenKhoaHoc,
       sortDirections: ["descend", "ascend"],
     },
@@ -174,12 +147,18 @@ const CourseDetail = () => {
       dataIndex: "moTa",
       key: "age",
       width: "20%",
-      ...getColumnSearchProps("age"),
+      render: (text,course) => {
+        return (
+          <div className="overflow-auto h-20">
+              <p>{course.moTa}</p>
+          </div>
+        )
+      }
     },
     {
       title: "Hình ảnh",
       dataIndex: "hinhAnh",
-      key: "address",
+      key: "hinhAnh",
     },
     {
       title: "Tác vụ",
@@ -207,7 +186,8 @@ const CourseDetail = () => {
   ];
   return (
     <div>
-        <Table columns={columns} dataSource={data} />
+      {courseDetail?.length ?<Table columns={columns} dataSource={courseDetail} />:<div className="text-center"> <Spin /></div> }
+        
     </div>
   );
 };

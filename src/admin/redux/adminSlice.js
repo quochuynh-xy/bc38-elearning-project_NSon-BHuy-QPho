@@ -11,9 +11,12 @@ const adminSlice = createSlice({
     getUserDetailAction: (state, action) => {
        state.userDetail = action.payload;
     },
+    getCourseDetailAction: (state, action) => {
+        state.courseDetail = action.payload
+    }
   },
 });
-export const { getUserDetailAction } = adminSlice.actions;
+export const { getUserDetailAction,getCourseDetailAction } = adminSlice.actions;
 export default adminSlice.reducer;
 
 // action thunk
@@ -30,4 +33,13 @@ export const getUserDetail = () => {
   };
 };
 
-export const getCourseDetail = () => {};
+export const getCourseDetail = () => {
+    return async (dispatch, getState) => {
+        try{
+            const res = await https.get("/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc")
+            dispatch(getCourseDetailAction(res.data))
+        }catch(err) {
+            console.log(err)
+        }
+    }
+};
