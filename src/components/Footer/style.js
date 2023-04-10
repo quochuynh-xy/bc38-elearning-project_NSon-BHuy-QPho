@@ -3,6 +3,9 @@ export const StyledFooter = styled.section`
   background-color: #1c1d1f;
   color: #ffffff;
   font-size: 14px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100%;
   .container {
     .top-content {
       .top-content__col {
