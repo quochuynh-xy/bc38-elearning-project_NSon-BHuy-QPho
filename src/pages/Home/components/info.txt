@@ -1,0 +1,1 @@
+Mỗi Component là 1 thư mục, bao gồm file jsx và file sass của nó.

@@ -1,29 +1,35 @@
 import Layout from "../../HOCs/Layout";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchDanhMucKhoaHoc } from "./homeReducer";
+import { actionFetchDanhMucKhoaHoc } from "./homeReducer";
 import Header from "../../components/Header/Header";
+import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import Footer from "../../components/Footer/Footer";
-import {FaDog} from "react-icons/fa"
+import Carousel from "./components/Carousel/Carousel";
+import TabAllCourses from "./components/TabAllCourses/TabAllCourses";
+import Feedback from "./components/Feedback/Feedback";
+import Categories from "./components/Categories/Categories";
+import Topics from "./components/Topics/Topics";
 const Home = () => {
   const dispatch = useDispatch();
   const danhMucKhoaHoc = useSelector(
     (state) => state.homeReducer.danhMucKhoaHoc
   );
   useEffect(() => {
-    dispatch(fetchDanhMucKhoaHoc());
+    dispatch(actionFetchDanhMucKhoaHoc());
   }, [dispatch]);
+  useEffect(() => {
+    document.title = "Edemy";
+  },[]);
   return (
     <Layout>
       <Header />
-      <div className="container mx-auto min-h-screen py-4">
-        <h2 className="text-center text-3xl text-red-500"><FaDog/><span className=""><FaDog/></span></h2>
-        <ul>
-          {danhMucKhoaHoc.map((item, index) => (
-            <li key={index}>{item.tenDanhMuc}</li>
-          ))}
-        </ul>
-      </div>
+      <SidebarNav/>
+      <Carousel />
+      <TabAllCourses danhMucKhoaHoc={danhMucKhoaHoc} />
+      <Feedback />
+      <Categories />
+      <Topics />
       <Footer />
     </Layout>
   );

@@ -1,0 +1,36 @@
+@import "../../styles/const.scss";
+@import "../../styles/mixin.scss";
+$input-box-size: 1.1rem;
+.filter-sider {
+    user-select: none;
+    .checkbox-container {
+        width: $input-box-size;
+        height: $input-box-size;
+        .checkmark {
+            width: $input-box-size;
+            height: $input-box-size;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            svg {
+                display: none;
+            }
+        }
+        input {
+            width: $input-box-size;
+            height: $input-box-size;
+            opacity: 0;
+            &:checked ~ .checkmark {
+                svg {
+                    display: block;
+                }
+            }
+        }
+    }
+    .group__item {
+        .group-item__name {
+            font-size: 14px;
+            letter-spacing: 1px;
+            margin-left: .5rem;
+        }
+    }
+}

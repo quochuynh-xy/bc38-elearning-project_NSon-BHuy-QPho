@@ -1,9 +1,16 @@
 import { configureStore } from "@reduxjs/toolkit";
 import homeReducer from "../pages/Home/homeReducer";
-import adminReducer from '../admin/redux/adminReducer'
+import detailReducer from "../pages/CourseDetails/courseDetailsReducer";
+import searchReducer from "../pages/SearchingCourses/searchReducer";
+import courseGroupReducer  from "../pages/CourseGroup/courseGroupReducer";
+import authReducer from "../pages/Authentication/authReducer";
 export const store = configureStore({
   reducer: {
-    homeReducer,
     admin: adminReducer
+    homeReducer,
+    detailReducer,
+    searchReducer,
+    courseGroupReducer,
+    authReducer,
   },
 });

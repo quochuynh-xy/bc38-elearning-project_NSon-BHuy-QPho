@@ -1,0 +1,80 @@
+@import "../../../../styles/const.scss";
+@import "../../../../styles/mixin.scss";
+$input-height: 44px;
+.signUp-area {
+  .container .form-options {
+    width: 50rem;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 60px 10px;
+    button {
+        user-select: none;
+    }
+    .options__input {
+      .input__account {
+        position: relative;
+        margin-bottom: 12px;
+        input.form-input {
+          width: 100%;
+          height: $input-height;
+          border-radius: 2px;
+          border: 1px solid $cl-primary;
+          outline: none;
+          padding: 0 12px;
+          font-weight: 600;
+          font-family: 'Times New Roman', Times, serif;
+        }
+        label.form-label {
+          transition: 0.3s;
+          position: absolute;
+          left: 0px;
+          top: 12px;
+          margin-left: 8px;
+          padding: 0 4px;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 1px;
+        }
+        .input__err-mes {
+          font-size: .75rem;
+          position: absolute;
+          top: -.5rem;
+          right: .25rem;
+          padding: 0 .25rem;
+          color: $cl-purple-1;
+          font-weight: 400;
+          background-color: #fff;
+          user-select: none;
+          border-radius: 4px;
+        }
+        input.form-input:-internal-autofill-selected {
+          background-color: #fff !important;
+          background-image: none !important;
+        }
+        input.form-input:-internal-autofill-selected ~ label.form-label {
+          background-color: #ffffffb7;
+          color: $cl-purple-1;
+          top: -8px;
+          font-size: 12px;
+        }
+        input.form-input:focus ~ label.form-label,
+        input.form-input:valid ~ label.form-label {
+          background-color: #fff;
+          color: $cl-purple-1;
+          top: -8px;
+          font-size: 12px;
+          border-radius: 4px
+        }
+      }
+      button.btn-sign-up {
+        @include btnStyle($bg-purple-1, $cl-white-1, $bg-purple-1);
+        height: 3rem;
+        font-size: 1.1rem;
+        &:hover {
+          background-color: $bg-purple-2;
+          letter-spacing: 1.5px;
+        }
+      }
+    }
+  }
+}
