@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineSnippets, AiOutlineFileAdd } from "react-icons/ai";
-import { getCourseDetail, getUserDetail } from "./redux/adminSlice";
+import { getCourseDetail, getUserDetail } from "./redux/adminReducer";
 import { useDispatch } from "react-redux";
 const Admin = () => {
   const dispatch = useDispatch()
@@ -161,10 +161,11 @@ const Admin = () => {
             </ul>
           </div>
         </aside>
-        <div className="p-4 w-[95%] flex flex-col justify-center h-screen sm:ml-64">
-          <div className="p-4  border-2  h-screen border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            <div className=" h-auto mb-4 rounded bg-gray-50 dark:bg-gray-800">
-              <div className="h-full w-full">
+        <div className="p-4 w-[95%] flex flex-col justify-center  sm:ml-64">
+          <div className="p-4  border-2  h-auto border-dashed  border-gray-200  w-[1200px] rounded-lg dark:border-gray-700 mt-14">
+            <div className=" h-auto mb-4 rou
+            nded  dark:bg-gray-800">
+              <div className="h-auto w-full bg-gray-50">
                 <Outlet />
               </div>
             </div>
@@ -176,3 +177,14 @@ const Admin = () => {
 };
 
 export default Admin;
+
+
+
+
+
+
+
+
+
+
+
