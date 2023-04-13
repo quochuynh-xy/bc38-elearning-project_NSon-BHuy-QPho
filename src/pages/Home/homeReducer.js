@@ -3,7 +3,7 @@ import { fetchDanhMucKhoaHoc } from "./services";
 const initialState = {
   danhMucKhoaHoc: [],
 };
-// reducer và action được dồn lại 1 chỗ (theo sự hướng dẫn của Sếp Khải)
+
 export const homeReducer = createSlice({
   name: "home",
   initialState,
@@ -15,7 +15,7 @@ export const homeReducer = createSlice({
 });
 export const { actionLayDanhMucKhoaHoc } = homeReducer.actions;
 export default homeReducer.reducer;
-// Async actions nếu có
+
 export const actionFetchDanhMucKhoaHoc =
   (tenMuc) => async (dispatch, getState) => {
     try {
