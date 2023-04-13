@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineSnippets, AiOutlineFileAdd } from "react-icons/ai";
+import { getCourseDetail, getUserDetail } from "./redux/adminReducer";
+import { useDispatch } from "react-redux";
 const Admin = () => {
+  const dispatch = useDispatch()
+  useEffect(()=> {
+    dispatch(getUserDetail())
+    dispatch(getCourseDetail())
+  }, [dispatch])
   return (
     <div className="container">
       <div>
@@ -41,7 +48,7 @@ const Admin = () => {
               </div>
               <div className="flex items-center">
                 <div className="flex items-center ml-3">
-                  <div>
+                  <div className="translate-x-[-100px]">
                     <button
                       type="button"
                       className="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -49,9 +56,9 @@ const Admin = () => {
                       data-dropdown-toggle="dropdown-user"
                     >
                       <img
-                        className="w-8 h-8 rounded-full"
+                        className="w-8 h-8 rounded-full "
                         src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                        alt="admin photo"
+                        alt=""
                       />
                     </button>
                   </div>
@@ -68,12 +75,12 @@ const Admin = () => {
           <div className="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
             <ul className="space-y-2 font-medium">
               <li>
-                <a
-                  href="#"
+                <NavLink
+                  to=''
                   className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
                 >
                   <span className="ml-3 font-bold text-xl">Admin Site</span>
-                </a>
+                </NavLink>
               </li>
               <li>
                 <NavLink
@@ -154,10 +161,11 @@ const Admin = () => {
             </ul>
           </div>
         </aside>
-        <div className="p-4 w-[95%] flex flex-col justify-center h-screen sm:ml-64">
-          <div className="p-4  border-2  h-screen border-gray-200 border-dashed rounded-lg dark:border-gray-700 mt-14">
-            <div className=" h-auto mb-4 rounded bg-gray-50 dark:bg-gray-800">
-              <div className="h-full w-full">
+        <div className="p-4 w-[95%] flex flex-col justify-center  sm:ml-64">
+          <div className="p-4  border-2  h-auto border-dashed  border-gray-200  w-[1200px] rounded-lg dark:border-gray-700 mt-14">
+            <div className=" h-auto mb-4 rou
+            nded  dark:bg-gray-800">
+              <div className="h-auto w-full bg-gray-50">
                 <Outlet />
               </div>
             </div>
@@ -169,3 +177,14 @@ const Admin = () => {
 };
 
 export default Admin;
+
+
+
+
+
+
+
+
+
+
+

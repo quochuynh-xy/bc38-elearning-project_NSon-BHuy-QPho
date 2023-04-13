@@ -6,6 +6,7 @@ import courseGroupReducer  from "../pages/CourseGroup/courseGroupReducer";
 import authReducer from "../pages/Authentication/authReducer";
 export const store = configureStore({
   reducer: {
+    admin: adminReducer
     homeReducer,
     detailReducer,
     searchReducer,

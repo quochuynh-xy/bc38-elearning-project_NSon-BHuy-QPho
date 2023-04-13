@@ -6,6 +6,9 @@ export const maNhom = "GP01";
 export const https = axios.create({
   baseURL: baseURL,
   timeout: 15000,
+  params: {
+    MaNhom: maNhom
+  }, 
   headers: {
     TokenCybersoft: token,
   },
