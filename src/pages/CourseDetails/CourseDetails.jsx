@@ -50,6 +50,23 @@ const CourseDetails = () => {
     };
     // Dùng để đăng nhập lại => cập nhật dữ liệu
     const token = localStorage.getItem("elearningToken");
+    if(!token) {
+      Swal.fire({
+        title: "Bạn chưa đăng nhập.",
+        text: "Vui lòng đăng nhập để hoàn thành thao tác!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#6b21a8",
+        cancelButtonColor: "#777",
+        confirmButtonText: "Đăng nhập",
+        cancelButtonText: "Hủy bỏ",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/thamGia");
+        }
+      });
+      return;
+    }
     requestDangKyKhoaHoc(data, token)
       .then((res) => {
         Swal.fire({
