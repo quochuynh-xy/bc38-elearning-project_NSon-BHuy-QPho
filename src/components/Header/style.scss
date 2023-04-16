@@ -2,6 +2,8 @@
 @import "../../styles/mixin.scss";
 .desktop-header {
   box-shadow: 0 4px 2px 0 #ddd;
+  position: relative;
+  background-color: #fff;
   z-index: 100;
   .container {
     max-width: 1500px;

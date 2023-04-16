@@ -27,6 +27,7 @@ export const {
   actionChoKetQua
 } = searchReducer.actions;
 export default searchReducer.reducer;
+
 export const actionFetchDanhSachKhoaHoc = (tuKhoa) => async (dispatch, getState) => {
     dispatch(actionChoKetQua())
     try {

@@ -19,8 +19,10 @@ import SidebarNav from "../../components/SidebarNav/SidebarNav";
 import Footer from "../../components/Footer/Footer";
 const AllCourses = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-  const userBasicInfo = useSelector(store => store.authReducer.userInfo.userBasicInfo);
+  const navigate = useNavigate();
+  const userBasicInfo = useSelector(
+    (store) => store.authReducer.userInfo.userBasicInfo
+  );
   const [searchParams, setSearchParams] = useSearchParams();
   const [loadedData, setLoadedData] = useState({});
   const [courseArr, setCourseArr] = useState([]);
@@ -42,84 +44,92 @@ const AllCourses = () => {
     setSearchParams({ ...searchParams, page: page });
     setLoadStatus("PENDING");
   };
-  const handleSubscribe = useCallback(async (maKhoaHoc) => {
-    const token = localStorage.getItem("elearningToken");
-    // Chưa đăng nhập
-    if(!userBasicInfo?.taiKhoan) {
-      Swal.fire({
-        title: 'Bạn chưa đăng nhập.',
-        text: "Vui lòng đăng nhập để hoàn thành thao tác!",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#6b21a8',
-        cancelButtonColor: '#777',
-        confirmButtonText: 'Đăng nhập',
-        cancelButtonText: "Hủy bỏ"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate("/thamGia")
-        }
-      })
-      return
-    }
-    const data = {
-      maKhoaHoc: maKhoaHoc,
-      taiKhoan: userBasicInfo.taiKhoan
-    }
-    try {
-      let res = await actionDangKyKhoaHoc(data, token);
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: res.data,
-        showConfirmButton: false,
-        timer: 2000
-      })
-      let newUserData = await autoLogin(token);
-      dispatch(actionGetUserInfo(newUserData.data));
-    } catch (error) {
-      console.log(error);
-      Swal.fire({
-        position: 'center',
-        icon: 'info',
-        title: error.response.data,
-        showConfirmButton: false,
-        timer: 2000
-      })
-    }
-  }, [navigate, userBasicInfo.taiKhoan, dispatch])
-  const handleUnSubscribe = useCallback(async (maKhoaHoc) => {
-    const token = localStorage.getItem("elearningToken");
-    const data = {
-      maKhoaHoc: maKhoaHoc,
-      taiKhoan: userBasicInfo.taiKhoan
-    }
-    try {
-      let res = await actionHuyDangKyKhoaHoc(data, token);
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: res.data,
-        showConfirmButton: false,
-        timer: 2000
-      })
-      let newData = await autoLogin(token);
-      dispatch(actionGetUserInfo(newData.data));
-    } catch (error) {
-      console.log(error);
-      Swal.fire({
-        position: 'center',
-        icon: 'info',
-        title: "Có lỗi xảy ra, vui lòng thử lại",
-        showConfirmButton: false,
-        timer: 2000
-      })
-    }
-  }, [userBasicInfo.taiKhoan, dispatch])
+
+  //Hành động theo dõi & hủy khóa học
+  const handleSubscribe = useCallback(
+    async (maKhoaHoc) => {
+      const token = localStorage.getItem("elearningToken");
+      // Chưa đăng nhập
+      if (!userBasicInfo?.taiKhoan) {
+        Swal.fire({
+          title: "Bạn chưa đăng nhập.",
+          text: "Vui lòng đăng nhập để hoàn thành thao tác!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#6b21a8",
+          cancelButtonColor: "#777",
+          confirmButtonText: "Đăng nhập",
+          cancelButtonText: "Hủy bỏ",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            navigate("/thamGia");
+          }
+        });
+        return;
+      }
+      const data = {
+        maKhoaHoc: maKhoaHoc,
+        taiKhoan: userBasicInfo.taiKhoan,
+      };
+      try {
+        let res = await actionDangKyKhoaHoc(data, token);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: res.data,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        let newUserData = await autoLogin(token);
+        dispatch(actionGetUserInfo(newUserData.data));
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          position: "center",
+          icon: "info",
+          title: error.response.data,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
+    },
+    [navigate, userBasicInfo.taiKhoan, dispatch]
+  );
+  const handleUnSubscribe = useCallback(
+    async (maKhoaHoc) => {
+      const token = localStorage.getItem("elearningToken");
+      const data = {
+        maKhoaHoc: maKhoaHoc,
+        taiKhoan: userBasicInfo.taiKhoan,
+      };
+      try {
+        let res = await actionHuyDangKyKhoaHoc(data, token);
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: res.data,
+          showConfirmButton: false,
+          timer: 2000,
+        });
+        let newData = await autoLogin(token);
+        dispatch(actionGetUserInfo(newData.data));
+      } catch (error) {
+        console.log(error);
+        Swal.fire({
+          position: "center",
+          icon: "info",
+          title: "Có lỗi xảy ra, vui lòng thử lại",
+          showConfirmButton: false,
+          timer: 2000,
+        });
+      }
+    },
+    [userBasicInfo.taiKhoan, dispatch]
+  );
   return (
     <Layout>
       <Header />
-      <SidebarNav/>
+      <SidebarNav />
       <section className="search-info container mx-auto py-8">
         <h3 className="text-stone-800 text-2xl font-bold pb-4">
           Danh sách khóa học tại Edemy.
@@ -132,13 +142,18 @@ const AllCourses = () => {
             </button>
           </div>
           <h3 className="search-info-action__result text-xl text-stone-600 font-bold">
-            {/* {searchResult.length} kết quả */}
+            Không áp dụng bộ lọc.
           </h3>
         </div>
       </section>
-      <section className="container mx-auto pb-10">
+      <section className="container mx-auto pb-10 pt-6">
         {courseArr.map((item, index) => (
-          <ItemWide key={index} data={item} handleSubscribe={handleSubscribe} handleUnSubscribe={handleUnSubscribe}/>
+          <ItemWide
+            key={index}
+            data={item}
+            handleSubscribe={handleSubscribe}
+            handleUnSubscribe={handleUnSubscribe}
+          />
         ))}
         <div className="h-8 text-center relative">
           {loadStatus !== "DONE" ? (
@@ -153,7 +168,7 @@ const AllCourses = () => {
           onChange={handleChangePage}
         />
       </section>
-      <Footer/>
+      <Footer />
     </Layout>
   );
 };
