@@ -6,7 +6,7 @@ export const SideNav = styled.div`
   height: 100vh;
   position: fixed;
   z-index: 100;
-  right: 0;
+  left: 0;
   top: 0;
   bottom: 0;
   color: #1c1d1f;
@@ -26,8 +26,9 @@ export const SideNav = styled.div`
     .hamburger {
       position: absolute;
       top: 7px;
-      left: -7px;
-      border-radius: 4px 0 0 4px;
+      right: -7px;
+      /* border-radius: 4px 0 0 4px; */
+      border-radius:0 4px 4px 0;
       border: 1px solid #ddd;
       background-color: #fff;
       cursor: pointer;
