@@ -1,13 +1,15 @@
 import React, { useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { AiOutlineUserAdd, AiOutlineUser, AiOutlineSnippets, AiOutlineFileAdd } from "react-icons/ai";
-import { getCourseDetail, getUserDetail } from "./redux/adminReducer";
+import {  accountAdmin, fetchCategoryCourse, fetchCourseListApi, fetchUserApi } from "./redux/adminReducer";
 import { useDispatch } from "react-redux";
 const Admin = () => {
   const dispatch = useDispatch()
   useEffect(()=> {
-    dispatch(getUserDetail())
-    dispatch(getCourseDetail())
+    dispatch(fetchUserApi())
+    dispatch(fetchCourseListApi())
+    dispatch(fetchCategoryCourse())
+    dispatch(accountAdmin())
   }, [dispatch])
   return (
     <div className="container">

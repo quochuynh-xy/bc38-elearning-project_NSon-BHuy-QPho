@@ -7,9 +7,17 @@ export const https = axios.create({
   baseURL: baseURL,
   timeout: 15000,
   params: {
-    MaNhom: maNhom
+    MaNhom: maNhom 
   }, 
   headers: {
     TokenCybersoft: token,
+  },
+});
+export const httpsNoParams = axios.create({
+  baseURL: baseURL,
+  timeout: 15000,
+  headers: {
+    TokenCybersoft: token,
+    // Authorization:'Bearer ' + localStorage.getItem('elearningToken')
   },
 });
