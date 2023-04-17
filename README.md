@@ -1,25 +1,3 @@
-# Todo task
-
-- Huy shiba:
-  + Bao sô Admin: Quản lý người dùng (thêm xóa sửa).
-		  Quản lý khóa học (thêm xóa sửa).
-		  Quản lý ghi danh:
-			+ Có thể tự ghi danh cho 1 thằng user bình thường.
-			+ Khi 1 thằng user đăng ký khóa học, cần phải xác nhận cho nó.
-			
-- Sơn xây dựng:
-  + Ôm trọn Footer + Header: Theo mẫu Udemy - logo đã có sẵn trong thư mục img.
-  + SignIn + SignUp.
-  + Quản lý chặn trang theo trạng thái đăng nhập của user.
-  + Trang cá nhân của 1 thằng User bình thường
-    ( gồm hiện thông tin, sửa thông tin, hủy đăng ký khóa học đã ghi danh).
-
-- Phô vô sỉ:
-  + Giao diện trang chủ.
-  + Giao diện tìm kiếm khóa học.
-  + Giao diện chi tiết khóa học.
-  + Giao diện khóa học theo danh mục.
-
 ## Available Scripts
 
 In the project directory, you can run:
