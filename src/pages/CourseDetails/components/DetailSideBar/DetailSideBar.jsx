@@ -16,7 +16,9 @@ const DetailSideBar = (props) => {
   const autoHideImg = () => {
     if (window.scrollY > 300) {
       setImgcover("hidden");
+      document.querySelector(".sidebar--control .sidebar .sidebar__content").style.marginTop = 0;
     } else {
+      document.querySelector(".sidebar--control .sidebar .sidebar__content").style.marginTop = "3.2rem";
       return setImgcover("");
     }
   };

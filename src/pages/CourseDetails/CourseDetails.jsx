@@ -23,6 +23,7 @@ const CourseDetails = () => {
   const thongTinNguoiDung = useSelector(
     (store) => store.authReducer.userInfo.userBasicInfo
   );
+  // Lấy thông tin của khóa học
   const getDataSuccess = useSelector(
     (state) => state.detailReducer.getDataSuccess
   );
@@ -31,14 +32,17 @@ const CourseDetails = () => {
   useEffect(() => {
     dispatch(actionFetchThongTinKhoaHoc(params.maKhoaHoc));
   }, [params.maKhoaHoc, dispatch]);
+  // Một số khóa học không rõ lý do gì bị lỗi, xử lý bằng cách cho quay về trang home
   useEffect(() => {
     if (getDataSuccess === "FAIL") {
+      alert(`Not found`)
       navigate("/");
     }
   }, [getDataSuccess, navigate]);
   const CollapseHeader = (name) => (
     <p className="font-bold text-base pl-2">{name}</p>
   );
+  // Hành động đăng ký - hủy đăng ký của người dùng
   const handleRegister = () => {
     const data = {
       taiKhoan: thongTinNguoiDung.taiKhoan,
@@ -46,6 +50,23 @@ const CourseDetails = () => {
     };
     // Dùng để đăng nhập lại => cập nhật dữ liệu
     const token = localStorage.getItem("elearningToken");
+    if(!token) {
+      Swal.fire({
+        title: "Bạn chưa đăng nhập.",
+        text: "Vui lòng đăng nhập để hoàn thành thao tác!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#6b21a8",
+        cancelButtonColor: "#777",
+        confirmButtonText: "Đăng nhập",
+        cancelButtonText: "Hủy bỏ",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate("/thamGia");
+        }
+      });
+      return;
+    }
     requestDangKyKhoaHoc(data, token)
       .then((res) => {
         Swal.fire({

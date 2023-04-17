@@ -7,8 +7,48 @@ import CourseCard from "../CourseCard/CourseCard";
 import { fetchKhoaHocTheoDanhMuc } from "../../services";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa";
 import { CircularProgress } from "@mui/material";
-// import CardOverview from "../CourseCard/CardOverview";
 import "./style.scss";
+
+const CustomTabs = styled(Tabs)({
+  "&": {
+    alignItems: "center",
+  },
+  ".MuiTabs-scroller": {
+    height: "40px",
+  },
+  ".MuiTabs-scrollButtons": {
+    color: "#a435f0",
+    height: "40px",
+    width: "40px",
+    backgroundColor: "#fff",
+    ".MuiSvgIcon-root": {
+      width: "initial",
+      height: "initial",
+      fontSize: "16px",
+    },
+  },
+  ".MuiTabs-indicator": {
+    display: "none",
+  },
+  ".Mui-disabled": {
+    display: "none",
+  },
+});
+const CustomTab = styled(Tab)({
+  "&": {
+    marginRight: "12px",
+    padding: "4px 4px 4px 0",
+    fontWeight: "700",
+    height: "40px",
+    textTransform: "capitalize",
+  },
+  "&.Mui-selected": {
+    color: "#1c1d1f",
+    fontWeight: "700",
+    fontFamily: "'Roboto', sans-serif",
+  },
+});
+
 const TabAllCourses = (props) => {
   const { danhMucKhoaHoc } = props;
   const reference = useRef(null);
@@ -17,45 +57,6 @@ const TabAllCourses = (props) => {
   const [value, setValue] = useState(0);
   const [tabItems, setTabItems] = useState([]);
   const [numberItemsDisplay, setNumberItemDisplay] = useState(5);
-  const CustomTabs = styled(Tabs)({
-    "&": {
-      alignItems: "center",
-    },
-    ".MuiTabs-scroller": {
-      height: "40px",
-    },
-    ".MuiTabs-scrollButtons": {
-      color: "#a435f0",
-      height: "40px",
-      width: "40px",
-      backgroundColor: "#fff",
-      ".MuiSvgIcon-root": {
-        width: "initial",
-        height: "initial",
-        fontSize: "16px",
-      },
-    },
-    ".MuiTabs-indicator": {
-      display: "none",
-    },
-    ".Mui-disabled": {
-      display: "none",
-    },
-  });
-  const CustomTab = styled(Tab)({
-    "&": {
-      marginRight: "12px",
-      padding: "4px 4px 4px 0",
-      fontWeight: "700",
-      height: "40px",
-      textTransform: "capitalize",
-    },
-    "&.Mui-selected": {
-      color: "#1c1d1f",
-      fontWeight: "700",
-      fontFamily: "'Roboto', sans-serif",
-    },
-  });
   const handleChangeTab = (event, newValue) => {
     setValue(newValue);
   };
@@ -70,6 +71,7 @@ const TabAllCourses = (props) => {
     slidesToScroll: numberItemsDisplay - 1,
     infinite: false,
   };
+  // Nhận danh mục khóa học từ component cha
   useEffect(() => {
     if (danhMucKhoaHoc.length) {
       const getData = async () => {
@@ -85,6 +87,7 @@ const TabAllCourses = (props) => {
       getData();
     }
   }, [danhMucKhoaHoc]);
+  // Lấy nội dung cho danh mục khóa học
   useEffect(() => {
     let acceptUpdateTabItems = true;
     const fetchData = async () => {
@@ -101,6 +104,7 @@ const TabAllCourses = (props) => {
     fetchData();
     return () => (acceptUpdateTabItems = false);
   }, [categoryCode]);
+  // Quản lý số lượng item hiển thị
   useEffect(() => {
     function reSize() {
       let size = window.innerWidth;
