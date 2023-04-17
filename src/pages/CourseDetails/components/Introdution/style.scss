@@ -1,0 +1,57 @@
+@import "../../../../styles/const.scss";
+@import "../../../../styles/mixin.scss";
+.introduction {
+  background-color: $bg-black-1;
+  padding: 3.2rem 0;
+  min-height: 280px;
+  .img__cover {
+    img {
+      min-height: 200px;
+    }
+  }
+  .details {
+    cursor: default;
+    .detail__name {
+      @include title-lg();
+      padding-bottom: 0.5rem;
+    }
+    .detail__des {
+      padding-bottom: 0.5rem;
+    }
+    .detail__overview {
+      .overview__rate {
+        font-size: 14px;
+        .rate__bestsell {
+          background-color: $bg-yellow-1;
+          font-size: 12px;
+          color: $cl-grey-1;
+        }
+        .rate__total-rated {
+          font-size: 12px;
+        }
+        .rate__students {
+          font-size: 12px;
+        }
+      }
+      .author {
+        font-size: 12px;
+        .author--name {
+          color: $cl-purple-3;
+        }
+      }
+      .overview__info {
+        .info__update {
+          font-size: 14px;
+          p {
+            font-size: 12px;
+          }
+        }
+      }
+      .overview__actions {
+        .btn__sub {
+          @include btnStyle($bg-purple-1, $cl-white-1, $bg-purple-1);
+        }
+      }
+    }
+  }
+}

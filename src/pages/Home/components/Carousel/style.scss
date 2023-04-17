@@ -1,0 +1,73 @@
+@import "../../../../styles/const.scss";
+@import "../../../../styles/mixin.scss";
+.carousel {
+  max-height: 380px;
+  max-width: 1280px;
+  padding-left: 0;
+  padding-right: 0;
+  margin-bottom: 40px;
+  .carousel__content {
+    @media screen and (max-width: 1024px) {
+      height: 40vh;
+      img {
+        height: 100%;
+      }
+    }
+    .content {
+      left: 90px;
+      top: 60px;
+      max-width: 420px;
+      .content__text {
+        padding: 24px;
+        background-color: $bg-grey-1;
+        h2 {
+          @include title-normal();
+        }
+        p {
+          color: $cl-primary;
+          font-size: 1.1rem;
+        }
+      }
+      .content__action {
+        @include btnStyle($bg-purple-1, $cl-white-1, $bg-purple-1);
+        height: 40px;
+      }
+      @media screen and (max-width: 1024px) {
+        .content__text {
+          padding: 20px;
+          h2 {
+            font-size: 20px;
+          }
+          p {
+            font-size: 14px;
+          }
+        }
+        @media screen and (max-width: 640px) {
+          .content__text {
+            padding: 16px;
+            h2 {
+              font-size: 20px;
+            }
+            p {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+  .carousel__next-btn,
+  .carousel__prev-btn {
+    top: 50%;
+    transform: translateY(-50%);
+    button {
+      @include btnNext();
+    }
+  }
+  .carousel__next-btn {
+    right: 20px;
+  }
+  .carousel__prev-btn {
+    left: 20px;
+  }
+}

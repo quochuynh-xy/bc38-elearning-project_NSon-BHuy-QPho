@@ -1,0 +1,197 @@
+@import "../../../../styles/const.scss";
+@import "../../../../styles/mixin.scss";
+.card-item {
+  margin: 0 8px;
+  border-radius: 4px;
+  .card-cover {
+    img.cover__img {
+      height: 120px;
+      width: 100%;
+      object-fit: cover;
+      border: 0.5px solid #cccccc8e;
+    }
+  }
+  .card-body {
+    padding: 0 8px;
+    border-bottom: 0.5px solid #cccccc8e;
+    border-left: 0.5px solid #cccccc8e;
+    border-right: 0.5px solid #cccccc8e;
+    .title {
+      font-size: 14px;
+      height: 42px;
+      overflow: hidden;
+      font-weight: 700;
+      color: $cl-primary;
+      line-height: 1.2;
+      padding-top: 8px;
+      margin-bottom: 0.4rem;
+      transition: .3s;
+    }
+    .athor {
+      font-size: 0.75rem;
+      line-height: 1;
+      color: $cl-grey-1;
+      margin-bottom: 0.4rem;
+    }
+    .rating {
+      .rating__avg {
+        .avg__number,
+        .avg__render {
+          font-size: 14px;
+          color: $cl-yellow-2;
+        }
+      }
+      .rating__view {
+        color: $cl-grey-1;
+      }
+    }
+    .price {
+      .price__original {
+        color: $cl-grey-1;
+      }
+      .price__discount {
+        color: $cl-primary;
+        font-weight: 700;
+      }
+    }
+    .hot {
+      .hot__status {
+        font-size: 12px;
+        font-weight: 700;
+        padding: 3px 8px;
+        color: $cl-primary;
+        background-color: $bg-yellow-1;
+      }
+    }
+  }
+  // .card-quickview {
+  //   // display: none;
+  //   top: 0;
+  //   width: 280px;
+  //   right: -260px;
+  //   padding: 20px;
+  //   border: 1px solid $bg-grey-4;
+  //   background-color: $bg-grey-1;
+  //   z-index: 10;
+    
+  //   .quickview__head {
+  //     .head__name {
+  //       color: $cl-primary;
+  //       font-weight: 700;
+  //       font-size: 1.1rem;
+  //     }
+  //     .head__update {
+  //       color: $cl-green-1;
+  //       font-weight: 700;
+  //       font-size: 12px;
+  //     }
+  //     .head__total-time {
+  //       font-weight: 400;
+  //       font-size: 11px;
+  //     }
+  //   }
+  //   .quickview__body {
+  //     font-size: 14px;
+  //     .body__des {
+  //       line-height: 1.1;
+  //     }
+  //   }
+  //   .quickview__actions {
+  //     .actions__btn-love, .actions__btn-sub {
+  //       height: 2.5rem;
+  //     }
+  //     .actions__btn-sub {
+  //       @include btnStyle($bg-purple-1, $cl-white-1, $bg-purple-1);
+  //     }
+  //     .actions__btn-love {
+  //       width: 2.5rem;
+  //       font-size: 1.5rem;
+  //       border: 1px solid $bg-grey-4;
+  //     }
+  //   }
+  // }
+  // &:hover {
+  //   img.cover__img {
+  //     filter: grayscale(50%);
+  //   }
+  //   .card-quickview {
+  //     display: block;
+  //   }
+  // }
+  // &.popup-left {
+  //   .card-quickview {
+  //     display: none;
+  //     top: 0;
+  //     height: 40px;
+  //     width: 120px;
+  //     background-color: darkcyan;
+  //     right: 100px;
+  //     z-index: 10;
+  //   }
+  // }
+}
+.card-quickview {
+  // display: none;
+  top: 0;
+  width: 280px;
+  right: -260px;
+  padding: 20px;
+  border: 1px solid $bg-grey-4;
+  background-color: $bg-grey-1;
+  z-index: 10;
+  
+  .quickview__head {
+    .head__name {
+      color: $cl-primary;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .head__update {
+      color: $cl-green-1;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .head__total-time {
+      font-weight: 400;
+      font-size: 11px;
+    }
+  }
+  .quickview__body {
+    font-size: 14px;
+    .body__des {
+      line-height: 1.1;
+    }
+  }
+  .quickview__actions {
+    .actions__btn-love, .actions__btn-sub {
+      height: 2.5rem;
+    }
+    .actions__btn-sub {
+      @include btnStyle($bg-purple-1, $cl-white-1, $bg-purple-1);
+    }
+    .actions__btn-love {
+      width: 2.5rem;
+      font-size: 1.5rem;
+      border: 1px solid $bg-grey-4;
+    }
+  }
+  &:hover {
+    img.cover__img {
+      filter: grayscale(50%);
+    }
+    .card-quickview {
+      display: block;
+    }
+  }
+  &.popup-left {
+    .card-quickview {
+      display: none;
+      top: 0;
+      height: 40px;
+      width: 120px;
+      background-color: darkcyan;
+      right: 100px;
+      z-index: 10;
+    }
+  }
+}

@@ -1,0 +1,105 @@
+@import "../../../../styles/const.scss";
+@import "../../../../styles/mixin.scss";
+$input-height: 44px;
+.login-area {
+  .container .form-options {
+    width: 50rem;
+    max-width: 350px;
+    margin: 0 auto;
+    padding: 60px 10px;
+    button {
+        user-select: none;
+    }
+    .options__social {
+      .social__option {
+        .option__btn {
+          display: flex;
+          align-items: center;
+          width: 100%;
+          height: $input-height;
+          border: 1px solid $cl-primary;
+          margin-bottom: 8px;
+          padding-left: 0.75rem;
+          padding-right: 0.75rem;
+          transition: 0.3s;
+          border-radius: 2px;
+          &:hover {
+            color: #000;
+            background-color: #dddddd77;
+            .btn__logo {
+              transform: scale(1.1);
+            }
+          }
+          .btn__logo {
+            transition: 0.3s;
+            line-height: 1;
+            font-size: 28px;
+            padding-bottom: 4px;
+            padding-right: 0.5rem;
+          }
+        }
+      }
+    }
+    .options__input {
+      margin-top: 16px;
+      .input__account {
+        position: relative;
+        margin-bottom: 12px;
+        input.form-input {
+          width: 100%;
+          height: $input-height;
+          border-radius: 2px;
+          border: 1px solid $cl-primary;
+          outline: none;
+          padding: 0 12px;
+          font-weight: 400;
+        }
+        label.form-label {
+          transition: 0.3s;
+          position: absolute;
+          left: 0px;
+          top: 12px;
+          margin-left: 8px;
+          padding: 0 4px;
+          font-size: 14px;
+          font-weight: 600;
+          letter-spacing: 1px;
+        }
+        input.form-input:-internal-autofill-selected ~ label.form-label {
+          background-color: #ffffffb7;
+          color: $cl-purple-1;
+          top: -8px;
+          font-size: 12px;
+        }
+        input.form-input:focus ~ label.form-label,
+        input.form-input:valid ~ label.form-label {
+          background-color: #fff;
+          color: $cl-purple-1;
+          top: -8px;
+          font-size: 12px;
+        }
+        .input__err-mes {
+          font-size: 1.25rem;
+          position: absolute;
+          top: -.5rem;
+          right: .25rem;
+          padding: 0 .25rem;
+          color: red;
+          font-weight: 400;
+          background-color: #fff;
+          user-select: none;
+          border-radius: 4px;
+        }
+      }
+      button.btn-login {
+        @include btnStyle($bg-purple-1, $cl-white-1, $bg-purple-1);
+        height: 3rem;
+        font-size: 1.1rem;
+        &:hover {
+          background-color: $bg-purple-2;
+          letter-spacing: 1.5px;
+        }
+      }
+    }
+  }
+}

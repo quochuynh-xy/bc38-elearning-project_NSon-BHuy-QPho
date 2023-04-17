@@ -1,0 +1,32 @@
+@import "../../../../styles/const.scss";
+@import "../../../../styles/mixin.scss";
+.categories {
+    padding-bottom: 80px;
+  .categories__title {
+    margin-bottom: 2rem;
+    h3 {
+      @include title-normal();
+      @media screen and (max-width: 1024px) {
+        font-size: 20px;
+      }
+    }
+  }
+  .categories__list {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    .list__item {
+      padding-bottom: 1rem;
+      img {
+        transition: 0.3s;
+      }
+      &:hover {
+        img {
+          transform: scale(1.1);
+        }
+        .item-name {
+          color: $cl-primary;
+        }
+      }
+    }
+  }
+}

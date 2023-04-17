@@ -1,0 +1,39 @@
+@import "../../../../styles/const.scss";
+@import "../../../../styles/mixin.scss";
+.sidebar--control {
+  // position: relative;
+  .sidebar {
+    max-width: 30%;
+    .sidebar__content {
+      margin-top: 3.2rem;
+      // margin-left: 3rem;
+      position: fixed;
+      min-width: 22rem;
+      max-width: 26rem;
+      padding: 2px;
+      background-color: $bg-grey-1;
+      border: 1px solid $bg-grey-4;
+      z-index: 3;
+      .card {
+        .card__header {
+          img {
+            min-height: 12rem;
+          }
+        }
+        .card__body {
+          .body__actions {
+            button {
+              @include btnStyle($bg-purple-1, $cl-white-1, $bg-purple-1);
+            }
+          }
+          .body__detail {
+            li {
+              font-size: 12px;
+              font-weight: 500;
+            }
+          }
+        }
+      }
+    }
+  }
+}

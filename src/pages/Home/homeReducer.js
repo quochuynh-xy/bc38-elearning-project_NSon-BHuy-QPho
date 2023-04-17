@@ -1,31 +1,27 @@
-import { https } from "../../services/config";
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
+import { fetchDanhMucKhoaHoc } from "./services";
 const initialState = {
-    danhMucKhoaHoc: [],
-}
-// reducer và action được dồn lại 1 chỗ (theo sự hướng dẫn của Sếp Khải)
+  danhMucKhoaHoc: [],
+};
+
 export const homeReducer = createSlice({
-    name: "home",
-    initialState,
-    reducers: {
-        layDanhMucKhoaHocAction: (state, action)=> {
-            state.danhMucKhoaHoc = action.payload
-        }
-    }
-})
-export const {layDanhMucKhoaHocAction} = homeReducer.actions;
+  name: "home",
+  initialState,
+  reducers: {
+    actionLayDanhMucKhoaHoc: (state, action) => {
+      state.danhMucKhoaHoc = action.payload;
+    },
+  },
+});
+export const { actionLayDanhMucKhoaHoc } = homeReducer.actions;
 export default homeReducer.reducer;
 
-export const fetchDanhMucKhoaHoc = (tenMuc) => async (dispatch, getState) => {
+export const actionFetchDanhMucKhoaHoc =
+  (tenMuc) => async (dispatch, getState) => {
     try {
-        const promise = await https.get("api/QuanLyKhoaHoc/LayDanhMucKhoaHoc", {
-            params: {
-                tenDanhMuc: tenMuc
-            }
-        });
-        console.log(promise.data);
-        dispatch(layDanhMucKhoaHocAction(promise.data))
+      const promise = await fetchDanhMucKhoaHoc(tenMuc);
+      dispatch(actionLayDanhMucKhoaHoc(promise.data));
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-}
+  };
